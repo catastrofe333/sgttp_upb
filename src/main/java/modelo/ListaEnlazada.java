@@ -54,4 +54,18 @@ public class ListaEnlazada<T> {
         }
         cantidad ++;
     }
+
+    public T search(T dato){
+        if (cabeza == null){
+            return null;
+        }
+        Nodo actual = cabeza;
+        while (actual!=null){
+            if (actual.getDato()==dato){
+                return actual.getDato();
+            }
+            actual=actual.getSiguiente();
+        }
+        return null;
+    }
 }
