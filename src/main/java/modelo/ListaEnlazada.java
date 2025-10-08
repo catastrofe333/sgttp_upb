@@ -68,4 +68,8 @@ public class ListaEnlazada<T> {
         }
         return null;
     }
+
+    public int size (){
+        return cantidad;
+    }
 }
