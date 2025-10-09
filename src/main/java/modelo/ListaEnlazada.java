@@ -6,8 +6,8 @@ public class ListaEnlazada<T> {
         private T dato;
         private Nodo siguiente;
 
-        public Nodo (T dato) {
-            this.dato=dato;
+        public Nodo(T dato) {
+            this.dato = dato;
             this.siguiente = null;
         }
 
@@ -36,68 +36,81 @@ public class ListaEnlazada<T> {
     //constructor ListaEnlazada
 
     public ListaEnlazada() {
-        this.cabeza=null;
-        this.cantidad=0;
+        this.cabeza = null;
+        this.cantidad = 0;
     }
 
     //metodos
 
     //metodo agregrar al inicio
-    public void agregar(T dato){
+    public void agregar(T dato) {
         Nodo nuevo = new Nodo(dato);
-        if (cabeza==null){
-            cabeza=nuevo;
-        }
-        else{
+        if (cabeza == null) {
+            cabeza = nuevo;
+        } else {
             nuevo.setSiguiente(cabeza);
-            cabeza=nuevo;
+            cabeza = nuevo;
         }
-        cantidad ++;
+        cantidad++;
     }
 
-    public T buscar(T dato){
-        if (cabeza == null){
+    public T buscar(T dato) {
+        if (cabeza == null) {
             return null;
         }
         Nodo actual = cabeza;
-        while (actual!=null){
-            if (actual.getDato()==dato){
+        while (actual != null) {
+            if (actual.getDato() == dato) {
                 return actual.getDato();
             }
-            actual=actual.getSiguiente();
+            actual = actual.getSiguiente();
         }
         return null;
     }
 
-    public int tamano (){
+    public int tamano() {
         return cantidad;
     }
+
     //verificar si esta vacia
-    public boolean vacio (){
-        if(cabeza == null){
+    public boolean vacio() {
+        if (cabeza == null) {
             return true;
         }
         return false;
     }
-    public void borrar (T dato){
-        if (vacio()){
+
+    public void borrar(T dato) {
+        if (vacio()) {
             System.out.println("la lista esta vacia");
             return;
         }
-        if (cabeza==dato){
-            cabeza=cabeza.getSiguiente();
+        if (cabeza == dato) {
+            cabeza = cabeza.getSiguiente();
             return;
         }
 
         Nodo actual = cabeza;
-        while (actual.getSiguiente()!=null){
-            if (actual.getSiguiente()==dato) {
+        while (actual.getSiguiente() != null) {
+            if (actual.getSiguiente() == dato) {
                 actual.setSiguiente(actual.getSiguiente().getSiguiente());
                 return;
             }
-            actual=actual.getSiguiente();
+            actual = actual.getSiguiente();
         }
         System.out.println("no encontro el dato");
     }
     //mostrar todos los elementos
+    public void mostrar (){
+        if(vacio()){
+            System.out.println("esta vacia la lista");
+            return;
+        }
+
+        Nodo actual = cabeza;
+        while(actual!=null){
+            System.out.print(actual.getDato()+" - ");
+            actual=actual.siguiente;
+        }
+    }
 }
