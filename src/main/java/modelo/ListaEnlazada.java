@@ -72,4 +72,11 @@ public class ListaEnlazada<T> {
     public int tamano (){
         return cantidad;
     }
+    //verificar si esta vacia
+    public boolean vacio (){
+        if(cabeza == null){
+            return true;
+        }
+        return false;
+    }
 }
