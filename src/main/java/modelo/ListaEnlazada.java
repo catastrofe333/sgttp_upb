@@ -43,7 +43,7 @@ public class ListaEnlazada<T> {
     //metodos
 
     //metodo agregrar al inicio
-    public void add(T dato){
+    public void agregar(T dato){
         Nodo nuevo = new Nodo(dato);
         if (cabeza==null){
             cabeza=nuevo;
@@ -55,7 +55,7 @@ public class ListaEnlazada<T> {
         cantidad ++;
     }
 
-    public T search(T dato){
+    public T buscar(T dato){
         if (cabeza == null){
             return null;
         }
@@ -69,7 +69,7 @@ public class ListaEnlazada<T> {
         return null;
     }
 
-    public int size (){
+    public int tamano (){
         return cantidad;
     }
 }
