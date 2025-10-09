@@ -41,7 +41,7 @@ public class Cola<T> {
         this. contador = 0;
     }
 
-    //agregar
+    //agregar por la cola
     public void agregar (T dato){
         Nodo nuevo = new Nodo(dato);
         if (vacio()){
@@ -53,7 +53,25 @@ public class Cola<T> {
         }
         contador ++;
     }
-    //eliminar
+    //eliminar por la cabeza
+    public T eliminar (){
+        if (vacio()){
+            System.out.println("la lista esta vacia");
+            return null;
+        }
+        if (contador == 1){
+            Nodo mostrar = cabeza;
+            cabeza = null;
+            cola = null;
+            contador --;
+            return mostrar.getDato();
+        }
+        Nodo mostrar = cabeza;
+        cabeza=cabeza.getSiguiente();
+        contador --;
+        return mostrar.getDato();
+
+    }
     //buscar
     //vacio
     public boolean vacio (){
