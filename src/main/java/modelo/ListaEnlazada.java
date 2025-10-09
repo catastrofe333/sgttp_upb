@@ -49,7 +49,7 @@ public class ListaEnlazada<T> {
             cabeza=nuevo;
         }
         else{
-            nuevo.siguiente=cabeza;
+            nuevo.setSiguiente(cabeza);
             cabeza=nuevo;
         }
         cantidad ++;
