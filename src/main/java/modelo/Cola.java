@@ -42,6 +42,24 @@ public class Cola<T> {
     }
 
     //agregar
+    public void agregar (T dato){
+        Nodo nuevo = new Nodo(dato);
+        if (vacio()){
+            cabeza=nuevo;
+            cola = nuevo;
+        }else{
+            cola.setSiguiente(nuevo);
+            cola=nuevo;
+        }
+
+    }
     //eliminar
     //buscar
+    //vacio
+    public boolean vacio (){
+        if (cabeza == null){
+            return true;
+        }
+        return false;
+    }
 }
