@@ -79,4 +79,25 @@ public class ListaEnlazada<T> {
         }
         return false;
     }
+    public void borrar (T dato){
+        if (vacio()){
+            System.out.println("la lista esta vacia");
+            return;
+        }
+        if (cabeza==dato){
+            cabeza=cabeza.getSiguiente();
+            return;
+        }
+
+        Nodo actual = cabeza;
+        while (actual.getSiguiente()!=null){
+            if (actual.getSiguiente()==dato) {
+                actual.setSiguiente(actual.getSiguiente().getSiguiente());
+                return;
+            }
+            actual=actual.getSiguiente();
+        }
+        System.out.println("no encontro el dato");
+    }
+    //mostrar todos los elementos
 }
