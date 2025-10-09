@@ -85,15 +85,17 @@ public class ListaEnlazada<T> {
             System.out.println("la lista esta vacia");
             return;
         }
-        if (cabeza == dato) {
+        if (cabeza.getDato() == dato) {
             cabeza = cabeza.getSiguiente();
+            cantidad --;
             return;
         }
 
         Nodo actual = cabeza;
         while (actual.getSiguiente() != null) {
-            if (actual.getSiguiente() == dato) {
+            if (actual.getSiguiente().getDato() == dato) {
                 actual.setSiguiente(actual.getSiguiente().getSiguiente());
+                cantidad --;
                 return;
             }
             actual = actual.getSiguiente();
@@ -112,5 +114,6 @@ public class ListaEnlazada<T> {
             System.out.print(actual.getDato()+" - ");
             actual=actual.siguiente;
         }
+        System.out.println();
     }
 }
