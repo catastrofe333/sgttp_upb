@@ -29,6 +29,18 @@ public class Cola<T> {
         }
     }
     //fin nodo
+
+    //variables de clase
+    private Nodo cabeza;
+    private Nodo cola;
+    private int contador;
+
+    public Cola() {
+        this.cabeza = null;
+        this. cola = null;
+        this. contador = 0;
+    }
+
     //agregar
     //eliminar
     //buscar
