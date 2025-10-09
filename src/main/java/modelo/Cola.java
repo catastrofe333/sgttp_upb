@@ -51,7 +51,7 @@ public class Cola<T> {
             cola.setSiguiente(nuevo);
             cola=nuevo;
         }
-
+        contador ++;
     }
     //eliminar
     //buscar
