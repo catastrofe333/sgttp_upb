@@ -29,4 +29,47 @@ public class ListaEnlazada<T> {
     }
     //fin Nodo
 
+    //atributos de clase ListaEnlazada
+    private Nodo cabeza;
+    private int cantidad;
+
+    //constructor ListaEnlazada
+
+    public ListaEnlazada() {
+        this.cabeza=null;
+        this.cantidad=0;
+    }
+
+    //metodos
+
+    //metodo agregrar al inicio
+    public void add(T dato){
+        Nodo nuevo = new Nodo(dato);
+        if (cabeza==null){
+            cabeza=nuevo;
+        }
+        else{
+            nuevo.siguiente=cabeza;
+            cabeza=nuevo;
+        }
+        cantidad ++;
+    }
+
+    public T search(T dato){
+        if (cabeza == null){
+            return null;
+        }
+        Nodo actual = cabeza;
+        while (actual!=null){
+            if (actual.getDato()==dato){
+                return actual.getDato();
+            }
+            actual=actual.getSiguiente();
+        }
+        return null;
+    }
+
+    public int size (){
+        return cantidad;
+    }
 }
