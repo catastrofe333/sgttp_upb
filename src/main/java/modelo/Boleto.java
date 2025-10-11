@@ -10,7 +10,7 @@ public class Boleto {
     private String categoria;
     private Viaje viaje;
     private int valorPasaje;
-    private List<Equipaje> equipajes;
+    private ListaEnlazada<Equipaje> equipajes;
 
     public Boleto(String idRegistro, LocalDateTime fechaCompra, Pasajero pasajero, String categoria, Viaje viaje, int valorPasaje) {
         this.idRegistro = idRegistro;
@@ -19,7 +19,7 @@ public class Boleto {
         this.categoria = categoria;
         this.viaje = viaje;
         this.valorPasaje = valorPasaje;
-        this.equipajes = new ArrayList<>();
+        this.equipajes = new ListaEnlazada<>();
     }
 
     public String getIdRegistro() {
@@ -70,16 +70,16 @@ public class Boleto {
         this.valorPasaje = valorPasaje;
     }
 
-    public List<Equipaje> getEquipajes() {
+    public ListaEnlazada<Equipaje> getEquipajes() {
         return equipajes;
     }
 
     //Agregar equipajes (2 max)
     public void agregarEquipaje(Equipaje equipaje){
-        if(equipajes.size() >= 2){
+        if(equipajes.tamano() >= 2){
             System.out.println("Se ha alcanzado el maximo de equipaje");
         } else {
-            equipajes.add(equipaje);
+            equipajes.agregar(equipaje);
             System.out.println("Se añadio exitosamente");
         }
     }

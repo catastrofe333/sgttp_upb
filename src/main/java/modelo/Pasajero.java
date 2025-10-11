@@ -13,7 +13,7 @@ public class Pasajero {
     private String nombreContacto;
     private String apellidoContacto;
     private String telefonoContacto;
-    private List<Boleto> boletos;
+    private ListaEnlazada<Boleto> boletos;
 
     public Pasajero(String idPasajero, String nombres, String apellidos, String tipoIdentificacion, String direccionActual, String numeroTelefono, String nombreContacto, String apellidoContacto, String telefonoContacto) {
         this.idPasajero = idPasajero;
@@ -25,7 +25,7 @@ public class Pasajero {
         this.nombreContacto = nombreContacto;
         this.apellidoContacto = apellidoContacto;
         this.telefonoContacto = telefonoContacto;
-        this.boletos = new ArrayList<>();
+        this.boletos = new ListaEnlazada<>();
     }
 
     public String getIdPasajero() {
@@ -100,13 +100,13 @@ public class Pasajero {
         this.telefonoContacto = telefonoContacto;
     }
 
-    public List<Boleto> getBoletos() {
+    public ListaEnlazada<Boleto> getBoletos() {
         return boletos;
     }
 
     //Agregar boletos
     public void agregarBoleto(Boleto boleto) {
-        boletos.add(boleto);
+        boletos.agregar(boleto);
         System.out.println("Boleto" + boleto.getIdRegistro() + " añadido");
     }
 

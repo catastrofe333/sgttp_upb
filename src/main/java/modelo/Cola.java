@@ -72,7 +72,6 @@ public class Cola<T> {
         return mostrar.getDato();
 
     }
-    //buscar
     //vacio
     public boolean vacio (){
         if (cabeza == null){

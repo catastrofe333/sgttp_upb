@@ -9,7 +9,7 @@ public abstract class Tren {
     private int kilometraje;
     private int capacidadCarga;
     private int capacidadPasajeros;
-    private List<Vagon> vagones;
+    private ListaEnlazada<Vagon> vagones;
 
     public Tren(String idTren, String nombreTren, int kilometraje, int numVagones) {
         this.idTren = idTren;
