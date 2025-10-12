@@ -4,8 +4,8 @@ public class Tren {
     private String idTren;
     private TipoTren tipo;
     private double kilometraje;
-    private ListaEnlazada<Vagon> vagonesPasajeros;
-    private ListaEnlazada<Vagon> vagonesCarga;
+    private ListaEnlazada<VagonPasajeros> vagonesPasajeros;
+    private ListaEnlazada<VagonCarga> vagonesCarga;
 
 
     //Constructor
@@ -42,49 +42,43 @@ public class Tren {
         this.kilometraje = kilometraje;
     }
 
-    public ListaEnlazada<Vagon> getVagonesPasajeros() {
+    public ListaEnlazada<VagonPasajeros> getVagonesPasajeros() {
         return vagonesPasajeros;
     }
 
-    public ListaEnlazada<Vagon> getVagonesCarga() {
+    public ListaEnlazada<VagonCarga> getVagonesCarga() {
         return vagonesCarga;
     }
 
     //METODOS
 
     //Agregar vagonPasajero
-    public boolean agregarVagonPasajeros(Vagon vagon){
-        if(vagon.getTipo() != TipoVagon.PASAJEROS){
-            return false;
-        }
+    public boolean agregarVagonPasajeros(VagonPasajeros vagonPasajeros){
         if(vagonesCarga.getTamano() + vagonesPasajeros.getTamano() >= tipo.getCapacidadMaxVagones()){
             return false;
         }
-        vagonesPasajeros.agregar(vagon);
+        vagonesPasajeros.agregar(vagonPasajeros);
         return true;
     }
 
     //Agregar vagonCarga
-    public boolean agregarVagonCarga(Vagon vagon){
-        if(vagon.getTipo() != TipoVagon.EQUIPAJE){
-            return false;
-        }
+    public boolean agregarVagonCarga(VagonCarga vagonCarga){
         if(vagonesCarga.getTamano() + vagonesPasajeros.getTamano() >= tipo.getCapacidadMaxVagones()){
             return false;
         }
         if(vagonesCarga.getTamano() >= vagonesPasajeros.getTamano() / 2){
             return false;
         }
-        vagonesCarga.agregar(vagon);
+        vagonesCarga.agregar(vagonCarga);
         return true;
     }
 
    //Buscar por ID Pasajero
-    public Vagon buscarVagonPasajeros(String idVagon){
+    public VagonPasajeros buscarVagonPasajeros(String idVagon){
         if(vagonesPasajeros.vacio()){
             return null;
         }
-        Nodo<Vagon> actual = vagonesPasajeros.getCabeza();
+        Nodo<VagonPasajeros> actual = vagonesPasajeros.getCabeza();
         while (actual != null) {
             if (actual.getDato().getIdVagon().equals(idVagon)) {
                 return actual.getDato();
@@ -95,11 +89,11 @@ public class Tren {
     }
 
     //Buscar por ID Carga
-    public Vagon buscarVagonCarga(String idVagon){
+    public VagonCarga buscarVagonCarga(String idVagon){
         if(vagonesCarga.vacio()){
             return null;
         }
-        Nodo<Vagon> actual = vagonesCarga.getCabeza();
+        Nodo<VagonCarga> actual = vagonesCarga.getCabeza();
         while (actual != null) {
             if (actual.getDato().getIdVagon().equals(idVagon)) {
                 return actual.getDato();
@@ -111,7 +105,7 @@ public class Tren {
 
     //Eliminar vagonPasajero
     public boolean eliminarVagonPasajero(String idVagon){
-        Vagon vagonEliminar = buscarVagonPasajeros(idVagon);
+        VagonPasajeros vagonEliminar = buscarVagonPasajeros(idVagon);
         if(vagonEliminar == null){
             return false;
         }
@@ -123,7 +117,7 @@ public class Tren {
         if(vagonesCarga.getTamano() <= vagonesPasajeros.getTamano() / 2){
             return false;
         }
-        Vagon vagonEliminar = buscarVagonCarga(idVagon);
+        VagonCarga vagonEliminar = buscarVagonCarga(idVagon);
         if(vagonEliminar == null){
             return false;
         }
@@ -133,10 +127,10 @@ public class Tren {
     //Mostrar vagones de pasajeros
     public String mostrarVagonesPasajeros(){
         if(vagonesPasajeros.vacio()){
-            return null;
+            return "";
         }
 
-        Nodo<Vagon> actual = vagonesPasajeros.getCabeza();
+        Nodo<VagonPasajeros> actual = vagonesPasajeros.getCabeza();
         StringBuilder resultado = new StringBuilder();
         while(actual!=null){
             resultado.append(actual.getDato().getIdVagon()).append(" - ");
@@ -148,10 +142,10 @@ public class Tren {
     //Mostrar vagones de pasajeros
     public String mostrarVagonesCarga(){
         if(vagonesCarga.vacio()){
-            return null;
+            return "";
         }
 
-        Nodo<Vagon> actual = vagonesCarga.getCabeza();
+        Nodo<VagonCarga> actual = vagonesCarga.getCabeza();
         StringBuilder resultado = new StringBuilder();
         while(actual!=null){
             resultado.append(actual.getDato().getIdVagon()).append(" - ");
