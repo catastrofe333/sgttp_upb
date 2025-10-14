@@ -35,6 +35,59 @@ public class Boleto {
         this.fechaCompra = LocalDateTime.now();
     }
 
+    //Getters
+    public String getIdBoleto() {
+        return idBoleto;
+    }
+
+    public LocalDateTime getFechaCompra() {
+        return fechaCompra;
+    }
+
+    public TipoIdPasajero getTipoIdPasajero() {
+        return tipoIdPasajero;
+    }
+
+    public String getIdPasajero() {
+        return idPasajero;
+    }
+
+    public String getNombrePasajero() {
+        return nombrePasajero;
+    }
+
+    public String getDireccionPasajero() {
+        return direccionPasajero;
+    }
+
+    public String getTelefonoPasajero() {
+        return telefonoPasajero;
+    }
+
+    public String getNombreContactoPasajero() {
+        return nombreContactoPasajero;
+    }
+
+    public String getTelefonoContactoPasajero() {
+        return telefonoContactoPasajero;
+    }
+
+    public Viaje getViaje() {
+        return viaje;
+    }
+
+    public CategoriaBoleto getCategoria() {
+        return categoria;
+    }
+
+    public double getValorBoleto() {
+        return valorBoleto;
+    }
+
+    public boolean isValidado() {
+        return validado;
+    }
+
     //Calcular valorBoleto segun la categoria
     private double calcularValorBoleto(){
         return viaje.getValorBase() * categoria.getIncrementoPrecio();
@@ -42,7 +95,7 @@ public class Boleto {
 
     //Agregar equipajes (2 max)
     public boolean agregarEquipaje(Equipaje equipaje){
-        if(equipajes.tamano() >= 2){
+        if(equipajes.getTamano() >= 2){
             return false;
         } else {
             equipajes.agregar(equipaje);
@@ -67,6 +120,6 @@ public class Boleto {
         System.out.println("Categoría: " + categoria);
         System.out.println("Valor del boleto: $" + valorBoleto);
         System.out.println("Validado: " + (validado ? "Sí" : "No"));
-        System.out.println("Equipajes registrados: " + equipajes.tamano());
+        System.out.println("Equipajes registrados: " + equipajes.getTamano());
     }
 }
