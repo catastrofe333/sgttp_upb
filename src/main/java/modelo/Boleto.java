@@ -1,86 +1,72 @@
 package modelo;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Boleto {
-    private String idRegistro;
+    private String idBoleto;
     private LocalDateTime fechaCompra;
-    private Pasajero pasajero; //revisar
-    private String categoria;
+    private TipoIdPasajero tipoIdPasajero;
+    private String idPasajero;
+    private String nombrePasajero;
+    private String direccionPasajero;
+    private String telefonoPasajero;
+    private String nombreContactoPasajero;
+    private String telefonoContactoPasajero;
     private Viaje viaje;
-    private int valorPasaje;
+    private CategoriaBoleto categoria;
+    private double valorBoleto;
     private ListaEnlazada<Equipaje> equipajes;
+    private boolean validado;
 
-    public Boleto(String idRegistro, LocalDateTime fechaCompra, Pasajero pasajero, String categoria, Viaje viaje, int valorPasaje) {
-        this.idRegistro = idRegistro;
-        this.fechaCompra = fechaCompra;
-        this.pasajero = pasajero;
-        this.categoria = categoria;
+    //Constructor
+    public Boleto(String idBoleto, TipoIdPasajero tipoIdPasajero, String idPasajero, String nombrePasajero, String direccionPasajero, String telefonoPasajero, String nombreContactoPasajero, String telefonoContactoPasajero, Viaje viaje, CategoriaBoleto categoria) {
+        this.idBoleto = idBoleto;
+        this.tipoIdPasajero = tipoIdPasajero;
+        this.idPasajero = idPasajero;
+        this.nombrePasajero = nombrePasajero;
+        this.direccionPasajero = direccionPasajero;
+        this.telefonoPasajero = telefonoPasajero;
+        this.nombreContactoPasajero = nombreContactoPasajero;
+        this.telefonoContactoPasajero = telefonoContactoPasajero;
         this.viaje = viaje;
-        this.valorPasaje = valorPasaje;
+        this.categoria = categoria;
         this.equipajes = new ListaEnlazada<>();
+        this.validado = false;
+        this.valorBoleto = calcularValorBoleto();
+        this.fechaCompra = LocalDateTime.now();
     }
 
-    public String getIdRegistro() {
-        return idRegistro;
-    }
-
-    public void setIdRegistro(String idRegistro) {
-        this.idRegistro = idRegistro;
-    }
-
-    public LocalDateTime getFechaCompra() {
-        return fechaCompra;
-    }
-
-    public void setFechaCompra(LocalDateTime fechaCompra) {
-        this.fechaCompra = fechaCompra;
-    }
-
-    public Pasajero getPasajero() {
-        return pasajero;
-    }
-
-    public void setPasajero(Pasajero pasajero) {
-        this.pasajero = pasajero;
-    }
-
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
-
-    public Viaje getViaje() {
-        return viaje;
-    }
-
-    public void setViaje(Viaje viaje) {
-        this.viaje = viaje;
-    }
-
-    public int getValorPasaje() {
-        return valorPasaje;
-    }
-
-    public void setValorPasaje(int valorPasaje) {
-        this.valorPasaje = valorPasaje;
-    }
-
-    public ListaEnlazada<Equipaje> getEquipajes() {
-        return equipajes;
+    //Calcular valorBoleto segun la categoria
+    private double calcularValorBoleto(){
+        return viaje.getValorBase() * categoria.getIncrementoPrecio();
     }
 
     //Agregar equipajes (2 max)
-    public void agregarEquipaje(Equipaje equipaje){
+    public boolean agregarEquipaje(Equipaje equipaje){
         if(equipajes.tamano() >= 2){
-            System.out.println("Se ha alcanzado el maximo de equipaje");
+            return false;
         } else {
             equipajes.agregar(equipaje);
-            System.out.println("Se añadio exitosamente");
+            return true;
         }
+    }
+
+    //Validar boleto
+    public void validarBoleto(){
+        this.validado = true;
+    }
+
+    //Mostrar boleto
+    public void mostrarBoleto(){
+        System.out.println("ID del Boleto: " + idBoleto);
+        System.out.println("Fecha de compra: " + fechaCompra);
+        System.out.println("Pasajero: " + nombrePasajero);
+        System.out.println("Tipo de identificación: " + tipoIdPasajero + " - " + idPasajero);
+        System.out.println("Dirección: " + direccionPasajero);
+        System.out.println("Teléfono: " + telefonoPasajero);
+        System.out.println("Contacto de emergencia: " + nombreContactoPasajero + " - " + telefonoContactoPasajero );
+        System.out.println("Categoría: " + categoria);
+        System.out.println("Valor del boleto: $" + valorBoleto);
+        System.out.println("Validado: " + (validado ? "Sí" : "No"));
+        System.out.println("Equipajes registrados: " + equipajes.tamano());
     }
 }
