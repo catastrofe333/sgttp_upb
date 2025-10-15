@@ -1,13 +1,13 @@
 package modelo;
 
 public abstract class Usuario {
-    private String idUsuario;
+    private String id;
     private String nombre;
     private String contrasena;
     private String cargo;
 
     public Usuario(String idUsuario, String nombre, String contrasena, String cargo) {
-        this.idUsuario = idUsuario;
+        this.id = idUsuario;
         this.nombre = nombre;
         this.contrasena = contrasena;
         this.cargo = cargo;
@@ -15,7 +15,7 @@ public abstract class Usuario {
 
     //Metodo para iniciar sesion
     public boolean iniciarSesion(String usuario, String contrasena){
-        if(idUsuario.equals(usuario) && contrasena.equals(contrasena)){
+        if(id.equals(usuario) && contrasena.equals(contrasena)){
             return true;
         } else{
             System.out.println("Usuario o contraseña incorrectos");
@@ -24,13 +24,13 @@ public abstract class Usuario {
     }
 
     //Getters
-    public String getIdUsuario() { return idUsuario; }
+    public String getId() { return id; }
     public String getNombre() { return nombre; }
     public String getCargo() { return cargo; }
 
     //Setters
-    public void setIdUsuario(String idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public void setNombre(String nombre) {
