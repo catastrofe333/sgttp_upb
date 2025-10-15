@@ -3,7 +3,7 @@ package modelo;
 import java.time.LocalDateTime;
 
 public class Viaje {
-    private String idViaje;
+    private final String idViaje;
     private Tren tren;
     private Ruta ruta;
     private double valorBase;
@@ -11,25 +11,28 @@ public class Viaje {
     private LocalDateTime fechaLlegada;
     private EstadoTrayecto estado;
     private ListaEnlazada<Boleto> boletos;
-    private int disponiblePremium;
-    private int disponibleEjecutivo;
-    private int disponibleEstandar;
+    private int disponiblesPremium;
+    private int disponiblesEjecutiva;
+    private int disponiblesEstandar;
 
-
-
-    public Viaje(String idViaje, Tren tren, Ruta ruta, LocalDateTime fechaSalida, LocalDateTime fechaLlegada) {
+    //CONSTRUCTOR
+    public Viaje(String idViaje, Tren tren, Ruta ruta, double valorBase, LocalDateTime fechaSalida, LocalDateTime fechaLlegada) {
         this.idViaje = idViaje;
         this.tren = tren;
         this.ruta = ruta;
+        this.valorBase = valorBase;
         this.fechaSalida = fechaSalida;
         this.fechaLlegada = fechaLlegada;
         this.estado = EstadoTrayecto.PENDIENTE;
-        this.boletos= new ListaEnlazada<>();
-        this.disponiblePremium= getTren().totalVagonesPasajeros()*CategoriaBoleto.PREMIUM.getLugaresPorVagon();
-        this.disponibleEjecutivo= getTren().totalVagonesPasajeros()*CategoriaBoleto.EJECUTIVA.getLugaresPorVagon();
-        this.disponibleEstandar= getTren().totalVagonesPasajeros() *CategoriaBoleto.ESTANDAR.getLugaresPorVagon();
+        this.boletos = new ListaEnlazada<>();
+
+        // Calcular cupos según numero de vagones de pasajeros
+        this.disponiblesPremium = tren.contarPorTipo(TipoVagon.PASAJEROS) * CategoriaBoleto.PREMIUM.getLugaresPorVagon();
+        this.disponiblesEjecutiva = tren.contarPorTipo(TipoVagon.PASAJEROS) * CategoriaBoleto.EJECUTIVA.getLugaresPorVagon();
+        this.disponiblesEstandar = tren.contarPorTipo(TipoVagon.PASAJEROS) * CategoriaBoleto.ESTANDAR.getLugaresPorVagon();
     }
 
+    //GETTER Y SETTERS
     public String getIdViaje() {
         return idViaje;
     }
@@ -54,8 +57,8 @@ public class Viaje {
         return estado;
     }
 
-    public void setIdViaje(String idViaje) {
-        this.idViaje = idViaje;
+    public double getValorBase() {
+        return valorBase;
     }
 
     public void setTren(Tren tren) {
@@ -74,10 +77,10 @@ public class Viaje {
         this.fechaLlegada = fechaLlegada;
     }
 
-    public double getValorBase() {
-        return valorBase;
-    }
+    public void setValorBase(double valorBase) { this.valorBase = valorBase; }
 
+    //METODOS
+    //Cambiar estado del trayecto
     public boolean setViajando (){
         if(estado== EstadoTrayecto.PENDIENTE){
             this.estado=EstadoTrayecto.VIAJANDO;
@@ -93,14 +96,45 @@ public class Viaje {
         return false;
     }
 
-    public void agregarboleto(Boleto boleto) {
-        boletos.agregar(boleto);
-        if (boleto.getCategoria() == CategoriaBoleto.PREMIUM) {
-            disponiblePremium--;
-        } else if (boleto.getCategoria() == CategoriaBoleto.EJECUTIVA) {
-            disponibleEjecutivo--;
-        } else if(boleto.getCategoria()==CategoriaBoleto.ESTANDAR){
-            disponibleEstandar --;
+    // Registrar un boleto (no venderlo)
+    public boolean registrarBoleto(Boleto boleto) {
+        switch (boleto.getCategoria()) {
+            case PREMIUM:
+                if (disponiblesPremium <= 0) return false;
+                disponiblesPremium--;
+                break;
+            case EJECUTIVA:
+                if (disponiblesEjecutiva <= 0) return false;
+                disponiblesEjecutiva--;
+                break;
+            case ESTANDAR:
+                if (disponiblesEstandar <= 0) return false;
+                disponiblesEstandar--;
+                break;
         }
+        boletos.agregar(boleto);
+        return true;
     }
+
+    // Mostrar disponibilidad
+    public String mostrarDisponibilidad() {
+        return "Disponibilidad actual:\n" +
+                " - Premium: " + disponiblesPremium + " boletos\n" +
+                " - Ejecutiva: " + disponiblesEjecutiva + " boletos\n" +
+                " - Estandar: " + disponiblesEstandar + " boletos\n";
+    }
+
+    //Mostrar informacion del viaje
+    //TODO: AGREGAR RUTA: ORIGINA Y DESTINO (AUN NO TENGO ESA CLASE)
+    @Override
+    public String toString() {
+        return "ID Viaje: " + idViaje + "\n" +
+                "Tren asignado: " + tren.getIdTren() + " (" + tren.getTipo() + ")\n" +
+                "Salida: " + fechaSalida + "\n" +
+                "Llegada: " + fechaLlegada + "\n" +
+                "Estado: " + estado + "\n" +
+                "Boletos registrados: " + boletos.getTamano() + "\n" +
+                mostrarDisponibilidad();
+    }
+
 }

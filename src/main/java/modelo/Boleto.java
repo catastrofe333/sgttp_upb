@@ -2,7 +2,7 @@ package modelo;
 import java.time.LocalDateTime;
 
 public class Boleto {
-    private String idBoleto;
+    private final String idBoleto;
     private LocalDateTime fechaCompra;
     private TipoIdPasajero tipoIdPasajero;
     private String idPasajero;
@@ -17,7 +17,7 @@ public class Boleto {
     private ListaEnlazada<Equipaje> equipajes;
     private boolean validado;
 
-    //Constructor
+    //CONSTRUCTOR
     public Boleto(String idBoleto, TipoIdPasajero tipoIdPasajero, String idPasajero, String nombrePasajero, String direccionPasajero, String telefonoPasajero, String nombreContactoPasajero, String telefonoContactoPasajero, Viaje viaje, CategoriaBoleto categoria) {
         this.idBoleto = idBoleto;
         this.tipoIdPasajero = tipoIdPasajero;
@@ -35,7 +35,7 @@ public class Boleto {
         this.fechaCompra = LocalDateTime.now();
     }
 
-    //Getters
+    //GETTERS Y SETTERS
     public String getIdBoleto() {
         return idBoleto;
     }
@@ -84,10 +84,19 @@ public class Boleto {
         return valorBoleto;
     }
 
+    public ListaEnlazada<Equipaje> getEquipajes() {
+        return equipajes;
+    }
+
     public boolean isValidado() {
         return validado;
     }
 
+    public void setValidado(boolean validado) {
+        this.validado = validado;
+    }
+
+    //METODOS
     //Calcular valorBoleto segun la categoria
     private double calcularValorBoleto(){
         return viaje.getValorBase() * categoria.getIncrementoPrecio();
@@ -103,23 +112,37 @@ public class Boleto {
         }
     }
 
-    //Validar boleto
-    public void validarBoleto(){
-        this.validado = true;
+    //Mostrar equipajes del boleto
+    public String mostrarEquipajes() {
+        if (equipajes.vacio()) {
+            return "No hay equipajes registrados para este boleto";
+        }
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("Equipajes del boleto ").append(idBoleto).append(":\n");
+
+        Nodo<Equipaje> actual = equipajes.getCabeza();
+        while (actual != null) {
+            sb.append(" - ").append(actual.getDato().toString()).append("\n");
+            actual = actual.getSiguiente();
+        }
+
+        return sb.toString();
     }
 
-    //Mostrar boleto
-    public void mostrarBoleto(){
-        System.out.println("ID del Boleto: " + idBoleto);
-        System.out.println("Fecha de compra: " + fechaCompra);
-        System.out.println("Pasajero: " + nombrePasajero);
-        System.out.println("Tipo de identificación: " + tipoIdPasajero + " - " + idPasajero);
-        System.out.println("Dirección: " + direccionPasajero);
-        System.out.println("Teléfono: " + telefonoPasajero);
-        System.out.println("Contacto de emergencia: " + nombreContactoPasajero + " - " + telefonoContactoPasajero );
-        System.out.println("Categoría: " + categoria);
-        System.out.println("Valor del boleto: $" + valorBoleto);
-        System.out.println("Validado: " + (validado ? "Sí" : "No"));
-        System.out.println("Equipajes registrados: " + equipajes.getTamano());
+    //Mostrar informacion
+    @Override
+    public String toString() {
+        return "ID Boleto: " + idBoleto + "\n" +
+                "Fecha de compra: " + fechaCompra + "\n" +
+                "Pasajero: " + nombrePasajero + " - " + tipoIdPasajero + " - " + idPasajero + "\n" +
+                "Direccion: " + direccionPasajero + "\n" +
+                "Teléfono: " + telefonoPasajero + "\n" +
+                "Contacto de emergencia: " + nombreContactoPasajero + " - " + telefonoContactoPasajero + "\n" +
+                "Categoria: " + categoria + "\n" +
+                "Valor del boleto: $" + valorBoleto + "\n" +
+                "Estado de validacion: " + (validado ? "Validado" : "No validado") + "\n" +
+                "Cantidad de equipajes: " + equipajes.getTamano() + "\n" +
+                "Equipajes:\n" + mostrarEquipajes();
     }
 }
