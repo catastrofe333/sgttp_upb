@@ -3,16 +3,14 @@ package modelo;
 public class Equipaje {
     private String idEquipaje;
     private int peso;
-    private String idVagonCarga;
+    private VagonCarga vagonCarga;
     private String estado;
-    private Pasajero pasajero;
 
-    public Equipaje(String idEquipaje, int peso, String idVagonCarga, String estado, Pasajero pasajero) {
+    public Equipaje(String idEquipaje, int peso, VagonCarga vagonCarga, String estado) {
         this.idEquipaje = idEquipaje;
         this.peso = peso;
-        this.idVagonCarga = idVagonCarga;
+        this.vagonCarga = vagonCarga;
         this.estado = estado;
-        this.pasajero = pasajero;
     }
 
     public String getIdEquipaje() {
@@ -35,24 +33,8 @@ public class Equipaje {
         }
     }
 
-    public String getIdVagonCarga() {
-        return idVagonCarga;
-    }
-
-    public void setIdVagonCarga(String idVagonCarga) {
-        this.idVagonCarga = idVagonCarga;
-    }
-
     public String getEstado() {
         return estado;
-    }
-
-    public Pasajero getPasajero() {
-        return pasajero;
-    }
-
-    public void setPasajero(Pasajero pasajero) {
-        this.pasajero = pasajero;
     }
 
     //Actualizar estado del equipaje
@@ -61,7 +43,9 @@ public class Equipaje {
         System.out.println("El equipaje fue actualizado a: " + nuevoEstado);
     }
 
-
-
+    //Obtener el idVagon de donde esta el equipaje
+    public String getIdVagon(){
+        return vagonCarga.getIdVagon();
+    }
 
 }
