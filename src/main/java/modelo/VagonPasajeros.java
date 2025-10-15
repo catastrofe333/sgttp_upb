@@ -80,4 +80,14 @@ public class VagonPasajeros extends Vagon{
         System.out.println("Lugares disponibles para la categoria estandar: " + ocupadosEstandar);
     }
 
+    //Vaciar boletos para cuando termine el viaje
+    public void vaciarBoletos(){
+        this.boletos.eliminarLista();
+        this.ocupadosPremium = 0;
+        this.ocupadosEjecutiva = 0;
+        this.ocupadosEstandar = 0;
+    }
+
+
+
 }
