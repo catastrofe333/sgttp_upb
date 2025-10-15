@@ -4,13 +4,13 @@ public class Vagon {
     private final String idVagon;
     private TipoVagon tipo;
 
-    //Constructor
+    //CONSTRUCTOR
     public Vagon(String idVagon, TipoVagon tipo) {
         this.idVagon = idVagon;
         this.tipo = tipo;
     }
 
-    //Getters y setters
+    //GETTERS Y SETTERS
     public String getIdVagon() {
         return idVagon;
     }

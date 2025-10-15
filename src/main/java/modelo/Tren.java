@@ -1,12 +1,12 @@
 package modelo;
 
 public class Tren {
-    private String idTren;
+    private final String idTren;
     private TipoTren tipo;
     private double kilometraje;
     private ListaEnlazada<Vagon> vagones;
 
-    //Constructor
+    //CONSTRUCTOR
     public Tren(String idTren, TipoTren tipo, double kilometraje) {
         this.idTren = idTren;
         this.tipo = tipo;
@@ -14,13 +14,9 @@ public class Tren {
         this.vagones = new ListaEnlazada<>();
     }
 
-    // Getters y setters
+    //GETTERS Y SETTERS
     public String getIdTren() {
         return idTren;
-    }
-
-    public void setIdTren(String idTren) {
-        this.idTren = idTren;
     }
 
     public TipoTren getTipo() {
@@ -44,6 +40,7 @@ public class Tren {
     }
 
     //METODOS
+    //Agregar un vagon al tren
     public boolean agregarVagon(Vagon vagon) {
         if (vagones.getTamano() >= tipo.getCapacidadMaxVagones()) {
             return false;
@@ -61,7 +58,7 @@ public class Tren {
         return true;
     }
 
-    // Contar cuantos vagones hay de cada tipo
+    //Contar cuantos vagones hay de cada tipo
     public int contarPorTipo(TipoVagon tipo) {
         int contador = 0;
         Nodo<Vagon> actual = vagones.getCabeza();
@@ -75,7 +72,7 @@ public class Tren {
         return contador;
     }
 
-    // Mostrar todos los vagones
+    //Mostrar todos los vagones
     public String mostrarVagones() {
         if (vagones.vacio()) {
             return "El tren no tiene vagones";
@@ -93,11 +90,11 @@ public class Tren {
         return sb.toString();
     }
 
-    // Mostrar informacion del tren
+    //Mostrar informacion del tren
     public String toString() {
         return "ID Tren: " + idTren + "\n" +
                 "Tipo: " + tipo + "\n" +
-                "Kilometraje: " + kilometraje +
+                "Kilometraje: " + kilometraje + "\n" +
                 "Cantidad total de vagones: " + vagones.getTamano() + "\n" +
                 " - Vagones de pasajeros: " + contarPorTipo(TipoVagon.PASAJEROS) + "\n" +
                 " - Vagones de carga: " + contarPorTipo(TipoVagon.EQUIPAJE) + "\n" +
