@@ -46,9 +46,6 @@ public abstract class Usuario {
     }
 
     // Metodo para mostrar informacion del usuario
-    public abstract void mostrarFunciones();
-
-
-
+    public abstract void mostrarInformacion();
 
 }
