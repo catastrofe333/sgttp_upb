@@ -4,20 +4,17 @@ public class Tren {
     private String idTren;
     private TipoTren tipo;
     private double kilometraje;
-    private ListaEnlazada<VagonPasajeros> vagonesPasajeros;
-    private ListaEnlazada<VagonCarga> vagonesCarga;
-
+    private ListaEnlazada<Vagon> vagones;
 
     //Constructor
     public Tren(String idTren, TipoTren tipo, double kilometraje) {
         this.idTren = idTren;
         this.tipo = tipo;
         this.kilometraje = kilometraje;
-        this.vagonesPasajeros = new ListaEnlazada<>();
-        this.vagonesCarga = new ListaEnlazada<>();
+        this.vagones = new ListaEnlazada<>();
     }
 
-    //Getters y setters
+    // Getters y setters
     public String getIdTren() {
         return idTren;
     }
@@ -42,141 +39,68 @@ public class Tren {
         this.kilometraje = kilometraje;
     }
 
-    public ListaEnlazada<VagonPasajeros> getVagonesPasajeros() {
-        return vagonesPasajeros;
-    }
-
-    public ListaEnlazada<VagonCarga> getVagonesCarga() {
-        return vagonesCarga;
+    public ListaEnlazada<Vagon> getVagones() {
+        return vagones;
     }
 
     //METODOS
-
-    //Agregar vagonPasajero
-    public boolean agregarVagonPasajeros(VagonPasajeros vagonPasajeros){
-        if(vagonesCarga.getTamano() + vagonesPasajeros.getTamano() >= tipo.getCapacidadMaxVagones()){
+    public boolean agregarVagon(Vagon vagon) {
+        if (vagones.getTamano() >= tipo.getCapacidadMaxVagones()) {
             return false;
         }
-        vagonesPasajeros.agregar(vagonPasajeros);
+
+        //Restriccion: 1 vagon de equipaje por cada 2 de pasajeros
+        int pasajeros = contarPorTipo(TipoVagon.PASAJEROS);
+        int equipaje = contarPorTipo(TipoVagon.EQUIPAJE);
+
+        if (vagon.getTipo() == TipoVagon.EQUIPAJE && equipaje >= pasajeros / 2) {
+            return false;
+        }
+
+        vagones.agregar(vagon);
         return true;
     }
 
-    //Agregar vagonCarga
-    public boolean agregarVagonCarga(VagonCarga vagonCarga){
-        if(vagonesCarga.getTamano() + vagonesPasajeros.getTamano() >= tipo.getCapacidadMaxVagones()){
-            return false;
-        }
-        if(vagonesCarga.getTamano() >= vagonesPasajeros.getTamano() / 2){
-            return false;
-        }
-        vagonesCarga.agregar(vagonCarga);
-        return true;
-    }
+    // Contar cuantos vagones hay de cada tipo
+    public int contarPorTipo(TipoVagon tipo) {
+        int contador = 0;
+        Nodo<Vagon> actual = vagones.getCabeza();
 
-   //Buscar por ID Pasajero
-    public VagonPasajeros buscarVagonPasajeros(String idVagon){
-        if(vagonesPasajeros.vacio()){
-            return null;
-        }
-        Nodo<VagonPasajeros> actual = vagonesPasajeros.getCabeza();
         while (actual != null) {
-            if (actual.getDato().getIdVagon().equals(idVagon)) {
-                return actual.getDato();
+            if (actual.getDato().getTipo() == tipo) {
+                contador++;
             }
             actual = actual.getSiguiente();
         }
-        return null;
+        return contador;
     }
 
-    //Buscar por ID Carga
-    public VagonCarga buscarVagonCarga(String idVagon){
-        if(vagonesCarga.vacio()){
-            return null;
+    // Mostrar todos los vagones
+    public String mostrarVagones() {
+        if (vagones.vacio()) {
+            return "El tren no tiene vagones";
         }
-        Nodo<VagonCarga> actual = vagonesCarga.getCabeza();
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("Vagones del tren ").append(idTren).append(":\n");
+
+        Nodo<Vagon> actual = vagones.getCabeza();
         while (actual != null) {
-            if (actual.getDato().getIdVagon().equals(idVagon)) {
-                return actual.getDato();
-            }
+            sb.append(" - ").append(actual.getDato().toString()).append("\n");
             actual = actual.getSiguiente();
         }
-        return null;
+
+        return sb.toString();
     }
 
-    //Eliminar vagonPasajero
-    public boolean eliminarVagonPasajero(String idVagon){
-        VagonPasajeros vagonEliminar = buscarVagonPasajeros(idVagon);
-        if(vagonEliminar == null){
-            return false;
-        }
-        return vagonesPasajeros.borrar(vagonEliminar);
-    }
-
-    //Eliminar vagonCarga
-    public boolean eliminarVagonCarga(String idVagon){
-        if(vagonesCarga.getTamano() <= vagonesPasajeros.getTamano() / 2){
-            return false;
-        }
-        VagonCarga vagonEliminar = buscarVagonCarga(idVagon);
-        if(vagonEliminar == null){
-            return false;
-        }
-        return vagonesCarga.borrar(vagonEliminar);
-    }
-
-    //Mostrar vagones de pasajeros
-    public String mostrarVagonesPasajeros(){
-        if(vagonesPasajeros.vacio()){
-            return "";
-        }
-
-        Nodo<VagonPasajeros> actual = vagonesPasajeros.getCabeza();
-        StringBuilder resultado = new StringBuilder();
-        while(actual!=null){
-            resultado.append(actual.getDato().getIdVagon()).append(" - ");
-            actual = actual.getSiguiente();
-        }
-        return resultado.toString();
-    }
-
-    //Mostrar vagones de pasajeros
-    public String mostrarVagonesCarga(){
-        if(vagonesCarga.vacio()){
-            return "";
-        }
-
-        Nodo<VagonCarga> actual = vagonesCarga.getCabeza();
-        StringBuilder resultado = new StringBuilder();
-        while(actual!=null){
-            resultado.append(actual.getDato().getIdVagon()).append(" - ");
-            actual = actual.getSiguiente();
-        }
-        return resultado.toString();
-    }
-
-    //Mostrar total vagonesPasajeros
-    public int totalVagonesPasajeros(){
-        return vagonesPasajeros.getTamano();
-    }
-
-    //Mostrar total vagonesCarga
-    public int totalVagonesCarga(){
-        return vagonesCarga.getTamano();
-    }
-
-    //Mostrar total vagones
-    public int totalVagones(){
-        return vagonesCarga.getTamano() + vagonesPasajeros.getTamano();
-    }
-
-    //Mostrar tren
-    public void mostrarTren(){
-        System.out.println("ID del Tren: " + idTren);
-        System.out.println("TipoTren: " + tipo);
-        System.out.println("Kilometraje: " + kilometraje);
-        System.out.println("Cantidad de vagones para pasajeros: " + totalVagonesPasajeros());
-        System.out.println("Vagones para pasajeros: " + mostrarVagonesPasajeros());
-        System.out.println("Cantidad de vagones para carga: " + totalVagonesCarga());
-        System.out.println("Vagones para carga: " + mostrarVagonesCarga());
+    // Mostrar informacion del tren
+    public String toString() {
+        return "ID Tren: " + idTren + "\n" +
+                "Tipo: " + tipo + "\n" +
+                "Kilometraje: " + kilometraje +
+                "Cantidad total de vagones: " + vagones.getTamano() + "\n" +
+                " - Vagones de pasajeros: " + contarPorTipo(TipoVagon.PASAJEROS) + "\n" +
+                " - Vagones de carga: " + contarPorTipo(TipoVagon.EQUIPAJE) + "\n" +
+                mostrarVagones();
     }
 }
