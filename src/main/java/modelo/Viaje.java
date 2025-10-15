@@ -6,6 +6,7 @@ public class Viaje {
     private String idViaje;
     private Tren tren;
     private Ruta ruta;
+    private double valorBase;
     private LocalDateTime fechaSalida;
     private LocalDateTime fechaLlegada;
     private String estadoTrayecto; //pendiente, en viaje, finalizado
@@ -61,6 +62,10 @@ public class Viaje {
 
     public void setFechaLlegada(LocalDateTime fechaLlegada) {
         this.fechaLlegada = fechaLlegada;
+    }
+
+    public double getValorBase() {
+        return valorBase;
     }
 
     //Actualizar el estado del viaje
