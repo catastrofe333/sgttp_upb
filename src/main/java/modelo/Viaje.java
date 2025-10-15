@@ -9,7 +9,13 @@ public class Viaje {
     private double valorBase;
     private LocalDateTime fechaSalida;
     private LocalDateTime fechaLlegada;
-    private String estadoTrayecto; //pendiente, en viaje, finalizado
+    private EstadoTrayecto estado;
+    private ListaEnlazada<Boleto> boletos;
+    private int disponiblePremium;
+    private int disponibleEjecutivo;
+    private int disponibleEstandar;
+
+
 
     public Viaje(String idViaje, Tren tren, Ruta ruta, LocalDateTime fechaSalida, LocalDateTime fechaLlegada) {
         this.idViaje = idViaje;
@@ -17,7 +23,11 @@ public class Viaje {
         this.ruta = ruta;
         this.fechaSalida = fechaSalida;
         this.fechaLlegada = fechaLlegada;
-        this.estadoTrayecto = "pendiente";
+        this.estado = EstadoTrayecto.PENDIENTE;
+        this.boletos= new ListaEnlazada<>();
+        this.disponiblePremium= getTren().totalVagonesPasajeros()*CategoriaBoleto.PREMIUM.getLugaresPorVagon();
+        this.disponibleEjecutivo= getTren().totalVagonesPasajeros()*CategoriaBoleto.EJECUTIVA.getLugaresPorVagon();
+        this.disponibleEstandar= getTren().totalVagonesPasajeros() *CategoriaBoleto.ESTANDAR.getLugaresPorVagon();
     }
 
     public String getIdViaje() {
@@ -40,8 +50,8 @@ public class Viaje {
         return fechaLlegada;
     }
 
-    public String getEstadoTrayecto() {
-        return estadoTrayecto;
+    public EstadoTrayecto getEstado() {
+        return estado;
     }
 
     public void setIdViaje(String idViaje) {
@@ -68,11 +78,29 @@ public class Viaje {
         return valorBase;
     }
 
-    //Actualizar el estado del viaje
-    public void setEstadoTrayecto(String estadoTrayecto) {
-        this.estadoTrayecto = estadoTrayecto;
-        System.out.println("Estado del viaje actualizado a: " + estadoTrayecto);
+    public boolean setViajando (){
+        if(estado== EstadoTrayecto.PENDIENTE){
+            this.estado=EstadoTrayecto.VIAJANDO;
+            return true;
+        }
+        return false;
+    }
+    public boolean setFinalizado (){
+        if(estado== EstadoTrayecto.VIAJANDO){
+            this.estado=EstadoTrayecto.FINALIZADO;
+            return true;
+        }
+        return false;
     }
 
-
+    public void agregarboleto(Boleto boleto) {
+        boletos.agregar(boleto);
+        if (boleto.getCategoria() == CategoriaBoleto.PREMIUM) {
+            disponiblePremium--;
+        } else if (boleto.getCategoria() == CategoriaBoleto.EJECUTIVA) {
+            disponibleEjecutivo--;
+        } else if(boleto.getCategoria()==CategoriaBoleto.ESTANDAR){
+            disponibleEstandar --;
+        }
+    }
 }

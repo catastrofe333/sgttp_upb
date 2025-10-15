@@ -15,11 +15,16 @@ public class ListaEnlazada<T> {
     //TODO: METODO QUE SEA PARA AGREGAR AL FINAL, ALERTA!! NO CAMBIAR EL NOMBRE
     public void agregar(T dato) {
         Nodo<T> nuevo = new Nodo<>(dato);
-        if (cabeza != null) {
-            nuevo.setSiguiente(cabeza);
+        if (vacio()){
+            cabeza=nuevo;
+        }else {
+            Nodo<T> actual = cabeza;
+            while (actual.getSiguiente()!=null){
+                actual=actual.getSiguiente();
+            }
+            actual.setSiguiente(nuevo);
         }
-        cabeza = nuevo;
-        tamano++;
+        tamano ++;
     }
 
     //Verificar si esta vacia
@@ -48,6 +53,11 @@ public class ListaEnlazada<T> {
             actual = actual.getSiguiente();
         }
         return false;
+    }
+
+    //metodo eliminarlista
+    public void eliminarLista (){
+        cabeza=null;
     }
 
     //Getter de cabeza
