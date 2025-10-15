@@ -82,10 +82,12 @@ public class VagonPasajeros extends Vagon{
 
     //Vaciar boletos para cuando termine el viaje
     public void vaciarBoletos(){
-        this.boletos = new ListaEnlazada<>();
+        this.boletos.eliminarLista();
         this.ocupadosPremium = 0;
         this.ocupadosEjecutiva = 0;
         this.ocupadosEstandar = 0;
     }
+
+
 
 }
