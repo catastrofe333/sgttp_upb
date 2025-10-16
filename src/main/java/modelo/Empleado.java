@@ -5,8 +5,4 @@ public class Empleado extends Usuario{
         super(idUsuario, nombre, contrasena, cargo);
     }
 
-    @Override
-    public void mostrarInformacion() {
-
-    }
 }
