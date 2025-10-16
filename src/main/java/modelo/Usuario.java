@@ -45,7 +45,13 @@ public abstract class Usuario {
         this.cargo = cargo;
     }
 
-    // Metodo para mostrar informacion del usuario
-    public abstract void mostrarInformacion();
+    //Mostrar informacion
+    @Override
+    public String toString(){
+        return "id "+ id +
+                " nombre: "+nombre+
+                " contraseña: "+contrasena+
+                " cargo: "+cargo;
+    }
 
 }
