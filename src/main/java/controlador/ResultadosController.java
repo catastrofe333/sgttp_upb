@@ -11,7 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import modelo.entidades.Ruta;
 import modelo.entidades.Viaje;
 import modelo.enums.Estacion;
@@ -22,9 +21,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Resultados {
-    @FXML // ⬅️ ANOTACIÓN FALTANTE
-    public Button iniciar_sesion;
+public class ResultadosController {
     @FXML // ⬅️ ANOTACIÓN FALTANTE
     public ScrollPane scrollPane;
     @FXML // ⬅️ ANOTACIÓN FALTANTE
@@ -88,10 +85,6 @@ public class Resultados {
                 }
             }
         }
-    }
-
-    @FXML
-    public void onIniciarClick(ActionEvent actionEvent) {
     }
 
     @FXML

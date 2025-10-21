@@ -9,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
-import javafx.stage.Stage;
 import modelo.entidades.Ruta;
 import modelo.entidades.Viaje;
 import modelo.enums.Estacion;
@@ -20,7 +19,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
-public class Inicio {
+public class InicioController {
     @FXML
     public Button viajes;
     @FXML
@@ -53,6 +52,17 @@ public class Inicio {
 
     @FXML
     public void onIniciarClick(ActionEvent actionEvent) {
+        // --- ⬇️ REEMPLAZA ESTE MÉTODO CON ESTO ⬇️ ---
+        try {
+            FXMLLoader loader = new FXMLLoader(Aplicacion.class.getResource("/login.fxml"));
+            Parent root = loader.load();
+            Scene scene = ((Node) actionEvent.getSource()).getScene();
+            scene.setRoot(root); // Cambia el contenido de la escena actual
+        } catch (IOException e) {
+            System.err.println("Error al cargar login.fxml: " + e.getMessage());
+            e.printStackTrace();
+        }
+        // --- ⬆️ FIN DEL REEMPLAZO ⬆️ ---
     }
 
     @FXML
@@ -66,10 +76,10 @@ public class Inicio {
         Viaje[] viajesEncontrados = Aplicacion.getSistema().getGestorViajes().buscarViajesPorRuta(rutasCoincidentes, fecha);
 
         // ... (TODA TU LÓGICA DE CARGAR EL FXML VA AQUÍ) ...
-        FXMLLoader fxmlLoader = new FXMLLoader(Aplicacion.class.getResource("/resultadosBusquedaRutas.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Aplicacion.class.getResource("/resultados_busqueda_rutas.fxml"));
         Parent root = fxmlLoader.load(); // Carga el nuevo VBox raíz
-        Resultados controllerResultados = fxmlLoader.getController();
-        controllerResultados.inicializarDatos(viajesEncontrados, estacionOrigen, estacionDestino, fecha);
+        ResultadosController controllerResultadosController = fxmlLoader.getController();
+        controllerResultadosController.inicializarDatos(viajesEncontrados, estacionOrigen, estacionDestino, fecha);
 
         // --- ⬇️ AQUÍ ESTÁ LA SOLUCIÓN ⬇️ ---
 

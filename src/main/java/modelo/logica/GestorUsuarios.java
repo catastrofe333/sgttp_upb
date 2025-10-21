@@ -42,7 +42,7 @@ public class GestorUsuarios {
 
     //METODOS
     public Administrador iniciarSesionAdministrador(String usuario, String contrasena) {
-        if (usuario.equals(administrador.getUsuario()) && usuario.equals(administrador.getContrasena())) {
+        if (usuario.equals(administrador.getUsuario()) && contrasena.equals(administrador.getContrasena())) {
             return administrador;
         }
         return null;

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<VBox id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="720.0" prefWidth="1280.0"
+      xmlns="http://javafx.com/javafx/21.0.6" xmlns:fx="http://javafx.com/fxml/1"
+      stylesheets="@inicio.css" fx:controller="controlador.LoginController">
+
+    <HBox id="menu_superior" prefHeight="100.0" prefWidth="1280.0">
+        <padding>
+            <Insets top="12.0" right="24.0" bottom="12.0" left="24.0"/>
+        </padding>
+        <Button mnemonicParsing="false" onAction="#onBackClick" styleClass="backButton">
+            <graphic>
+                <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@/imagenes/flechaAtras.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
+        <ImageView fitHeight="60.0" fitWidth="260.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@/imagenes/logo.png"/>
+        </ImageView>
+        <Region HBox.hgrow="ALWAYS"/>
+    </HBox>
+
+    <VBox alignment="CENTER" VBox.vgrow="ALWAYS" spacing="30.0">
+        <padding>
+            <Insets bottom="50.0"/> </padding>
+
+        <VBox alignment="CENTER" maxWidth="500.0" styleClass="loginCard" spacing="25.0">
+            <padding>
+                <Insets top="40.0" right="50.0" bottom="40.0" left="50.0"/>
+            </padding>
+
+            <HBox alignment="CENTER_LEFT" styleClass="inputFieldContainer">
+                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@/imagenes/usuario.png"/>
+                </ImageView>
+                <TextField fx:id="textFieldUsuario" promptText="Usuario" styleClass="inputField"/>
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" styleClass="inputFieldContainer">
+                <ImageView fitHeight="24.0" fitWidth="24.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@/imagenes/contrasena.png"/>
+                </ImageView>
+                <PasswordField fx:id="passwordFieldContrasena" promptText="Contraseña" styleClass="inputField"/>
+            </HBox>
+
+            <ComboBox fx:id="comboBoxRol" promptText="Rol" prefWidth="350.0" styleClass="combo_box_login"/>
+
+            <Label fx:id="labelError" styleClass="errorLabel" visible="false" managed="false"
+                   text="Usuario o contraseña incorrectos"/>
+
+            <Button fx:id="btnIngresar" mnemonicParsing="false" onAction="#onIngresarClick"
+                    styleClass="ingresarButton" text="INGRESAR"/>
+
+        </VBox>
+    </VBox>
+</VBox>
