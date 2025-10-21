@@ -10,7 +10,8 @@
 <?import javafx.scene.layout.VBox?>
 
 <HBox alignment="CENTER_LEFT" prefHeight="140.0" prefWidth="900.0" styleClass="travelCard"
-      xmlns="http://javafx.com/javafx/21.0.6" xmlns:fx="http://javafx.com/fxml/1">
+      xmlns="http://javafx.com/javafx/21.0.6" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controlador.TarjetaViaje">
     <padding>
         <Insets left="40.0" right="40.0"/>
     </padding>
