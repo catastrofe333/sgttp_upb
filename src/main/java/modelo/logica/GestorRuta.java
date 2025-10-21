@@ -53,6 +53,17 @@ public class GestorRuta {
         guardarLog(new Date() + " AGREGAR: " + ruta.getIdRuta() + " USUARIO: " + administrador.getUsuario());
     }
 
+    public Ruta buscarRutaPorId(String idRuta) {
+        if (rutas == null) return null;
+
+        for (Ruta ruta : rutas) {
+            if (ruta.getIdRuta().equals(idRuta)) {
+                return ruta;
+            }
+        }
+        return null; // No se encontró
+    }
+
     public Ruta[] buscarRutasPorOrigenDestino(Estacion origen, Estacion destino) {
         if (rutas == null) return null;
 
