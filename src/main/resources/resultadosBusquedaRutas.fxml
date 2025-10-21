@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="720.0" prefWidth="1280.0"
+      xmlns="http://javafx.com/javafx/21.0.6" xmlns:fx="http://javafx.com/fxml/1"
+      stylesheets="@inicio.css" fx:controller="controlador.Resultados">
+
+    <HBox id="menu_superior" prefHeight="100.0" prefWidth="1280.0">
+        <padding>
+            <Insets top="12.0" right="24.0" bottom="12.0" left="24.0"/>
+        </padding>
+        <Button mnemonicParsing="false" onAction="#onBackClick" styleClass="backButton">
+            <graphic>
+                <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                    <Image url="@/imagenes/arrow_back.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
+
+        <ImageView fitHeight="60.0" fitWidth="260.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@/imagenes/logo.png"/>
+        </ImageView>
+        <Region HBox.hgrow="ALWAYS"/>
+        <HBox id="boton_lateral" alignment="CENTER_RIGHT" prefWidth="260.0" HBox.hgrow="NEVER">
+            <Button fx:id="iniciar_sesion" mnemonicParsing="false" styleClass="loginButton"
+                    text="Iniciar sesión" onAction="#onIniciarClick"/>
+        </HBox>
+    </HBox>
+
+    <ScrollPane fx:id="scrollPane" fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="transparentScroll">
+        <VBox id="resultados_viajes" alignment="TOP_CENTER" prefWidth="1280.0" spacing="20.0">
+            <padding>
+                <Insets top="30.0" right="40.0" left="40.0" bottom="40.0"/>
+            </padding>
+
+            <Label id="labelBusqueda" text="Origen a Destino, Fecha Salida" styleClass="tituloResultados"/>
+
+            <VBox fx:id="vbox_tarjetas" alignment="CENTER" prefWidth="1000.0" spacing="15.0">
+                <fx:include source="tarjeta_viaje.fxml"/>
+                <fx:include source="tarjeta_viaje.fxml"/>
+                <fx:include source="tarjeta_viaje.fxml"/>
+
+            </VBox>
+        </VBox>
+    </ScrollPane>
+</VBox>
