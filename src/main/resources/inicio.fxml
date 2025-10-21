@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="720.0" prefWidth="1280.0"
+      xmlns="http://javafx.com/javafx/21.0.6" xmlns:fx="http://javafx.com/fxml/1"
+      stylesheets="@inicio.css" fx:controller="controlador.Inicio" styleClass="root">
+
+    <!-- BARRA SUPERIOR -->
+    <HBox id="menu_superior" prefHeight="100.0" prefWidth="1280.0">
+        <padding>
+            <Insets top="12.0" right="24.0" bottom="12.0" left="24.0"/>
+        </padding>
+        <ImageView fitHeight="60.0" fitWidth="260.0" pickOnBounds="true" preserveRatio="true">
+            <Image url="@/imagenes/logo.png"/>
+        </ImageView>
+
+        <!-- spacer para empujar el centro y derecha -->
+        <Region HBox.hgrow="ALWAYS"/>
+
+        <HBox id="botones_centrales" alignment="CENTER" spacing="24.0" HBox.hgrow="NEVER">
+            <Button fx:id="viajes" mnemonicParsing="false" styleClass="menuButton" text="Viajes" onAction="#onViajesClick"/>
+            <Button fx:id="boletos" mnemonicParsing="false" styleClass="menuButton" text="Mis Boletos" onAction="#onBoletosClick"/>
+        </HBox>
+
+        <Region prefWidth="40.0"/>
+
+        <HBox id="boton_lateral" alignment="CENTER_RIGHT" prefWidth="260.0" HBox.hgrow="NEVER">
+            <Button fx:id="iniciar_sesion" mnemonicParsing="false" styleClass="loginButton"
+                    text="Iniciar sesión" onAction="#onIniciarClick"/>
+        </HBox>
+    </HBox>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <VBox id="contenido" alignment="TOP_CENTER" prefHeight="620.0" prefWidth="1280.0" spacing="20.0">
+        <padding>
+            <Insets top="10.0" right="40.0" left="40.0" bottom="20.0"/>
+        </padding>
+        <!-- TITULO -->
+        <HBox id="hbox_mensaje" alignment="BOTTOM_CENTER" prefHeight="260.0" prefWidth="1280.0">
+            <padding>
+                <Insets bottom="10.0"/>
+            </padding>
+            <Label id="labelMensaje" text="¿A DÓNDE VAMOS?" styleClass="titulo"/>
+        </HBox>
+
+        <!-- CAJA BLANCA DE BUSQUEDA -->
+        <HBox id="busqueda" alignment="CENTER" prefWidth="1080.0" styleClass="searchBox" spacing="60.0">
+            <VBox id="vbox_origen" alignment="CENTER" spacing="10.0">
+                <Label text="Origen" styleClass="campoLabel"/>
+                <ComboBox fx:id="origen" prefWidth="220.0" styleClass="combo_box"/>
+            </VBox>
+
+            <VBox id="vbox_destino" alignment="CENTER" spacing="10.0">
+                <Label text="Destino" styleClass="campoLabel"/>
+                <ComboBox fx:id="destino" prefWidth="220.0" styleClass="combo_box"/>
+            </VBox>
+
+            <VBox id="vbox_fecha" alignment="CENTER" spacing="10.0">
+                <Label text="Fecha Salida" styleClass="campoLabel"/>
+                <DatePicker fx:id="fecha_salida" prefWidth="220.0" styleClass="fecha"/>
+            </VBox>
+        </HBox>
+
+        <!-- BOTÓN BUSCAR -->
+        <HBox id="boton_inferior" alignment="TOP_CENTER" prefHeight="120.0" prefWidth="1280.0">
+            <padding>
+                <Insets top="10.0"/>
+            </padding>
+            <Button fx:id="buscar" mnemonicParsing="false" styleClass="buscarButton" text="BUSCAR" onAction="#onBuscarClick"/>
+        </HBox>
+    </VBox>
+</VBox>
