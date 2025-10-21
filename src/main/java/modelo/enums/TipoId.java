@@ -1,13 +1,13 @@
-package modelo;
+package modelo.enums;
 
-public enum TipoIdPasajero {
+public enum TipoId {
     CC("Cedula de Ciudadania"),
     CE("Cedula Extranjera"),
     TI("Tarjeta de Identidad");
 
     private final String descripcion;
 
-    TipoIdPasajero(String descripcion) {
+    TipoId(String descripcion) {
         this.descripcion = descripcion;
     }
 

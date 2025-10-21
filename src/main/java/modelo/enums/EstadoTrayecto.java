@@ -1,4 +1,4 @@
-package modelo;
+package modelo.enums;
 
 public enum EstadoTrayecto {
     PENDIENTE,

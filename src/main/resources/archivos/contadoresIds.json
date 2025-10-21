@@ -1,0 +1,9 @@
+{
+  "boleto": 0,
+  "equipaje": 0,
+  "ruta": 0,
+  "tren": 0,
+  "vagonPasajeros": 0,
+  "vagonCarga": 0,
+  "viaje": 0
+}
