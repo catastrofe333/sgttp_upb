@@ -1,11 +1,15 @@
-module core {
+open module core {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.sql;
+    requires com.google.gson;
 
-    exports vista;
     exports controlador;
     exports modelo;
-
-    opens vista to javafx.fxml;
-    opens controlador to javafx.fxml;
+    exports modelo.entidades;
+    exports modelo.enums;
+    exports modelo.estructuras;
+    exports modelo.logica;
+    exports modelo.persistencia;
+    exports vista;
 }

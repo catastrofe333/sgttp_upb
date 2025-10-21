@@ -1,8 +1,32 @@
-package modelo;
+package modelo.estructuras;
 
 public class ListaEnlazada<T> {
     private Nodo<T> cabeza;
     private int tamano;
+
+    public static class Nodo<T> {
+        private final T dato;
+        private Nodo<T> siguiente;
+
+        //Constructor
+        public Nodo(T dato) {
+            this.dato = dato;
+            this.siguiente = null;
+        }
+
+        //Getters y setters
+        public T getDato() {
+            return dato;
+        }
+
+        public Nodo<T> getSiguiente() {
+            return siguiente;
+        }
+
+        public void setSiguiente(Nodo<T> siguiente) {
+            this.siguiente = siguiente;
+        }
+    }
 
     //Constructor ListaEnlazada
     public ListaEnlazada() {
@@ -14,15 +38,12 @@ public class ListaEnlazada<T> {
     //Metodo agregrar al inicio
     //TODO: METODO QUE SEA PARA AGREGAR AL FINAL, ALERTA!! NO CAMBIAR EL NOMBRE
     public void agregar(T dato) {
-        Nodo<T> nuevo = new Nodo<>(dato);
+        Nodo<T> nuevo = new Nodo<T>(dato);
         if (vacio()){
             cabeza=nuevo;
         }else {
-            Nodo<T> actual = cabeza;
-            while (actual.getSiguiente()!=null){
-                actual=actual.getSiguiente();
-            }
-            actual.setSiguiente(nuevo);
+            nuevo.setSiguiente(cabeza);
+            cabeza = nuevo;
         }
         tamano ++;
     }
