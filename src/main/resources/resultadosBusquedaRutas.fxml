@@ -22,7 +22,7 @@
         <Button mnemonicParsing="false" onAction="#onBackClick" styleClass="backButton">
             <graphic>
                 <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
-                    <Image url="@/imagenes/arrow_back.png"/>
+                    <Image url="@/imagenes/flechaAtras.png"/>
                 </ImageView>
             </graphic>
         </Button>
@@ -43,13 +43,20 @@
                 <Insets top="30.0" right="40.0" left="40.0" bottom="40.0"/>
             </padding>
 
-            <Label id="labelBusqueda" text="Origen a Destino, Fecha Salida" styleClass="tituloResultados"/>
+            <Label fx:id="labelBusqueda" text="Origen a Destino, Fecha Salida" styleClass="tituloResultados"/>
 
             <VBox fx:id="vbox_tarjetas" alignment="CENTER" prefWidth="1000.0" spacing="15.0">
-                <fx:include source="tarjeta_viaje.fxml"/>
-                <fx:include source="tarjeta_viaje.fxml"/>
-                <fx:include source="tarjeta_viaje.fxml"/>
+            </VBox>
 
+            <VBox fx:id="vbox_no_resultados" alignment="CENTER" prefWidth="600.0" spacing="20.0"
+                  styleClass="noResultsCard" visible="false">
+                <padding>
+                    <Insets top="40.0" right="40.0" bottom="40.0" left="40.0"/>
+                </padding>
+                <Label text="Parece que no hay viajes disponibles" styleClass="noResultsTitle"/>
+                <Label text="Te mostramos otras rutas que podrían interesarte" styleClass="noResultsSubtitle"/>
+                <Button fx:id="btnVerOtrasRutas" mnemonicParsing="false" onAction="#onVerOtrasRutasClick"
+                        styleClass="verButton" text="VER"/>
             </VBox>
         </VBox>
     </ScrollPane>

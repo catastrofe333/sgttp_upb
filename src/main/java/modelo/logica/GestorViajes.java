@@ -7,6 +7,7 @@ import modelo.enums.EstadoTrayecto;
 import modelo.persistencia.GestorArchivos;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 
 public class GestorViajes {
@@ -138,7 +139,7 @@ public class GestorViajes {
 
         for (Ruta ruta : rutasEncontradas) {
             for (Viaje viaje : viajes) {
-                if (viaje.isVisible() && viaje.getFechaSalida().equals(fechaSalida)
+                if (viaje.isVisible() && sonMismoDia(viaje.getFechaSalida(), fechaSalida)
                         && viaje.getIdRuta().equals(ruta.getIdRuta())) {
                     viajesEncontrados = Arrays.copyOf(viajesEncontrados, viajesEncontrados.length + 1);
                     viajesEncontrados[viajesEncontrados.length - 1] = viaje;
@@ -188,6 +189,19 @@ public class GestorViajes {
             return true;
         }
         return false;
+    }
+
+    private boolean sonMismoDia(Date fecha1, Date fecha2) {
+        if (fecha1 == null || fecha2 == null) {
+            return false;
+        }
+        Calendar cal1 = Calendar.getInstance();
+        cal1.setTime(fecha1);
+        Calendar cal2 = Calendar.getInstance();
+        cal2.setTime(fecha2);
+
+        return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
+                cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR);
     }
 
     /*public boolean generarViajesSemana(String idViaje, Administrador administrador) {
