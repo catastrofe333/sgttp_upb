@@ -1,9 +1,9 @@
 {
   "tipoId": "CC",
-  "id": "63344555",
-  "nombres": "Oliva",
-  "apellidos": "Saavedra",
+  "id": "111111111",
+  "nombres": "Francisco",
+  "apellidos": "Molina",
   "cargo": "Administrador",
-  "usuario": "ADMIN",
+  "usuario": "admin",
   "contrasena": "12345"
 }
