@@ -87,13 +87,16 @@ public class Tren {
         }
         VagonPasajeros[] temporal = new VagonPasajeros[vagonesPasajeros.length - 1];
         int i = 0;
-        for(VagonPasajeros vagonPasajeros : vagonesPasajeros){
-            if(!vagonPasajeros.getIdVagon().equals(idVagonPasajeros)){
-                temporal[i] = vagonPasajeros;
-                i++;
+        for(VagonPasajeros vagonPasajeros : vagonesPasajeros) {
+            if (vagonPasajeros != null) {
+                if (!vagonPasajeros.getIdVagon().equals(idVagonPasajeros)) {
+                    temporal[i] = vagonPasajeros;
+                    i++;
+                }
             }
         }
         vagonesPasajeros = temporal;
+        numVagonesPasajeros--;
         return true;
     }
 
@@ -106,12 +109,15 @@ public class Tren {
         VagonCarga[] temporal = new VagonCarga[vagonesCarga.length - 1];
         int i = 0;
         for(VagonCarga vagonCarga : vagonesCarga){
-            if(!vagonCarga.getIdVagon().equals(idVagonCarga)){
-                temporal[i] = vagonCarga;
-                i++;
+            if (vagonCarga != null) {
+                if(!vagonCarga.getIdVagon().equals(idVagonCarga)){
+                    temporal[i] = vagonCarga;
+                    i++;
+                }
             }
         }
         vagonesCarga = temporal;
+        numVagonesCarga--;
         return true;
     }
 

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="TOP_CENTER" spacing="30.0" xmlns="http://javafx.com/javafx/21.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.EmpleadoBoletosController">
+    <VBox.margin><Insets top="20.0" /></VBox.margin>
+    <Label text="Gestión de Boletos" styleClass="adminSectionTitle"/>
+    <GridPane hgap="30.0" vgap="30.0" alignment="CENTER">
+        <columnConstraints> <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" prefWidth="250.0"/> <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" prefWidth="250.0"/> </columnConstraints>
+        <rowConstraints> <RowConstraints minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES"/> </rowConstraints>
+        <Button text="VALIDAR BOLETO" onAction="#onValidarClick" styleClass="adminActionButton" wrapText="true" maxWidth="Infinity" GridPane.columnIndex="0"/>
+        <Button text="CONSULTAR BOLETO" onAction="#onConsultarClick" styleClass="adminActionButton" wrapText="true" maxWidth="Infinity" GridPane.columnIndex="1"/>
+    </GridPane>
+</VBox>

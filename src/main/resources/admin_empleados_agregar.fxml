@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="25.0"
+      xmlns="http://javafx.com/javafx/21.0.6" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controlador.AdminEmpleadosAgregarController">
+    <VBox.margin><Insets top="20.0" right="50.0" left="50.0" /></VBox.margin> <Label text="AGREGAR EMPLEADO" styleClass="adminSectionTitle"/>
+
+    <GridPane hgap="15.0" vgap="15.0" alignment="CENTER" maxWidth="700">
+        <columnConstraints>
+            <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="10.0" prefWidth="150.0"/>
+            <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" minWidth="10.0" prefWidth="250.0"/>
+            <ColumnConstraints halignment="RIGHT" hgrow="NEVER" minWidth="10.0" prefWidth="100.0"/>
+            <ColumnConstraints halignment="LEFT" hgrow="ALWAYS" minWidth="10.0" prefWidth="250.0"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES"/>
+        </rowConstraints>
+
+        <Label text="Tipo ID:" styleClass="campoLabel" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+        <ComboBox fx:id="comboBoxTipoId" promptText="Seleccionar..." styleClass="combo_box" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+        <Label text="Cargo:" styleClass="campoLabel" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+        <TextField fx:id="fieldCargo" promptText="Ej: Taquillero" styleClass="inputField" maxWidth="Infinity" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+
+        <Label text="Número ID:" styleClass="campoLabel" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+        <TextField fx:id="fieldNumeroId" promptText="Número Identificación" styleClass="inputField" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+        <Label text="Usuario:" styleClass="campoLabel" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+        <TextField fx:id="fieldUsuario" promptText="nombre.usuario" styleClass="inputField" maxWidth="Infinity" GridPane.columnIndex="3" GridPane.rowIndex="1"/>
+
+        <Label text="Nombres:" styleClass="campoLabel" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+        <TextField fx:id="fieldNombres" promptText="Nombres Completos" styleClass="inputField" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+        <Label text="Contraseña:" styleClass="campoLabel" GridPane.columnIndex="2" GridPane.rowIndex="2"/>
+        <PasswordField fx:id="fieldContrasena" promptText="Contraseña" styleClass="inputField" maxWidth="Infinity" GridPane.columnIndex="3" GridPane.rowIndex="2"/>
+
+        <Label text="Apellidos:" styleClass="campoLabel" GridPane.columnIndex="0" GridPane.rowIndex="3"/>
+        <TextField fx:id="fieldApellidos" promptText="Apellidos Completos" styleClass="inputField" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+
+    </GridPane>
+
+    <Button mnemonicParsing="false" onAction="#onCrearClick"
+            styleClass="ingresarButton" text="CREAR" prefWidth="200"/>
+
+    <Label fx:id="labelMensaje" styleClass="errorLabel" wrapText="true"/>
+</VBox>

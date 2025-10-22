@@ -68,10 +68,9 @@ public class LoginController {
             if (usuarioAutenticado instanceof Administrador) {
                 System.out.println("Navegando al panel de Administrador...");
                 cargarVista("/panel_admin.fxml", event);
-            } else if (usuarioAutenticado instanceof Empleado) {
+            } else {
                 System.out.println("Navegando al panel de Empleado...");
-                // cargarVista("/panel_empleado.fxml", event);
-                cargarVista("/inicio.fxml", event);
+                cargarVista("/panel_empleado.fxml", event);
             }
 
         } else {

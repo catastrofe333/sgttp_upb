@@ -51,28 +51,32 @@ public class PanelAdminController {
     @FXML
     void onRutasClick(ActionEvent event) {
         System.out.println("Cargando gestión de Rutas...");
-        loadContent("/admin_rutas.fxml");   // Asume que tienes un FXML para gestionar rutas
+        // ESTA ES LA LÍNEA QUE DEBES CAMBIAR/VERIFICAR
+        loadContent("/admin_rutas.fxml");   // Apunta al nuevo menú principal de rutas
         seleccionarBoton(btnRutas);
     }
 
     @FXML
     void onViajesClick(ActionEvent event) {
         System.out.println("Cargando gestión de Viajes...");
-        loadContent("/admin_viajes.fxml");  // Asume que tienes un FXML para gestionar viajes
+        // ESTA ES LA LÍNEA QUE DEBES CAMBIAR/VERIFICAR
+        loadContent("/admin_viajes.fxml");  // Apunta al nuevo menú principal de viajes
         seleccionarBoton(btnViajes);
     }
 
     @FXML
     void onEmpleadosClick(ActionEvent event) {
         System.out.println("Cargando gestión de Empleados...");
-        loadContent("/admin_empleados.fxml"); // Asume que tienes un FXML para gestionar empleados
+        // THIS IS THE LINE TO CHANGE/VERIFY
+        loadContent("/admin_empleados.fxml"); // Point to the new main employee menu
         seleccionarBoton(btnEmpleados);
     }
 
     @FXML
     void onHistorialClick(ActionEvent event) {
         System.out.println("Cargando Historial...");
-        loadContent("/admin_historial.fxml"); // Asume que tienes un FXML para ver el historial
+        // ESTA ES LA LÍNEA QUE DEBES CAMBIAR/VERIFICAR
+        loadContent("/admin_historial.fxml"); // Apunta al nuevo FXML del historial
         seleccionarBoton(btnHistorial);
     }
 

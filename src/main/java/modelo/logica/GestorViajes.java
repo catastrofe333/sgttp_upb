@@ -90,6 +90,18 @@ public class GestorViajes {
         return true;
     }
 
+    public boolean hacerOculto(String idViaje, Administrador administrador){
+        Viaje viajeOculto = buscarViaje(idViaje);
+        if(viajeOculto == null || !viajeOculto.isVisible()){
+            // No existe o ya está oculto
+            return false;
+        }
+        viajeOculto.setVisible(false);
+        guardar();
+        guardarLog(new Date() + " HACER OCULTO VIAJE: " + idViaje + " USUARIO: " + administrador.getUsuario());
+        return true;
+    }
+
 
     public boolean modificarRuta(String idViaje, String idNuevaRuta, Administrador administrador){
         Viaje viaje = buscarViaje((idViaje));
@@ -150,17 +162,25 @@ public class GestorViajes {
     }
 
     public Viaje[] concatenarViajes(Viaje[] viajesOrigen, Viaje[] viajesDestino) {
-        if (viajesOrigen.length == 0) {
-            return null;
-        }
-        if (viajesDestino.length == 0) {
-            return null;
+        // Asignar arrays vacíos si son nulos, para evitar NullPointerException
+        Viaje[] origen = (viajesOrigen != null) ? viajesOrigen : new Viaje[0];
+        Viaje[] destino = (viajesDestino != null) ? viajesDestino : new Viaje[0];
+
+        if (origen.length == 0 && destino.length == 0) {
+            return new Viaje[0]; // Devolver vacío si no hay nada
         }
 
-        Viaje[] resultado = new Viaje[viajesOrigen.length + viajesDestino.length];
+        if (origen.length == 0) {
+            return destino; // Devolver solo destino
+        }
+        if (destino.length == 0) {
+            return origen; // Devolver solo origen
+        }
 
-        System.arraycopy(viajesOrigen, 0, resultado, 0, viajesOrigen.length);
-        System.arraycopy(viajesDestino, 0, resultado, viajesOrigen.length, viajesDestino.length);
+        // Ambos tienen contenido
+        Viaje[] resultado = new Viaje[origen.length + destino.length];
+        System.arraycopy(origen, 0, resultado, 0, origen.length);
+        System.arraycopy(destino, 0, resultado, origen.length, destino.length);
 
         return resultado;
     }

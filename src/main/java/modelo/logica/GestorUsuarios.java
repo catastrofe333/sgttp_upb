@@ -104,7 +104,7 @@ public class GestorUsuarios {
         return true;
     }
 
-    public boolean modificarCargoUsuario(String idEmpleado, String nuevoUsuario, Administrador administrador){
+    public boolean modificarUsuarioEmpleado(String idEmpleado, String nuevoUsuario, Administrador administrador){
         Empleado empleado = buscarEmpleado(idEmpleado);
         if(empleado == null){
             return false;
@@ -115,7 +115,7 @@ public class GestorUsuarios {
         return true;
     }
 
-    public boolean modificarCargoContrasena(String idEmpleado, String nuevaContrasena, Administrador administrador){
+    public boolean modificarContrasenaEmpleado(String idEmpleado, String nuevaContrasena, Administrador administrador){
         Empleado empleado = buscarEmpleado(idEmpleado);
         if(empleado == null){
             return false;

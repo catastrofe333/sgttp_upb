@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="TOP_CENTER" spacing="30.0" styleClass="adminContentArea"
+      xmlns="http://javafx.com/javafx/21.0.6" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controlador.AdminRutasConsultarController"> <padding>
+    <Insets top="20.0" right="50.0" bottom="30.0" left="50.0"/>
+</padding>
+
+    <Label text="CONSULTAR RUTA" styleClass="adminSectionTitle"/>
+
+    <VBox alignment="CENTER" spacing="20.0">
+        <ComboBox fx:id="comboBoxIdRuta" promptText="Seleccionar ID Ruta" styleClass="combo_box" prefWidth="350"
+                  onAction="#onRutaSeleccionada"/>
+
+        <Label fx:id="labelMensaje" styleClass="errorLabel" wrapText="true" visible="false" managed="false"/>
+
+        <VBox fx:id="vboxResultado" styleClass="loginCard" spacing="15.0"
+              prefWidth="450" visible="false" managed="false">
+            <padding><Insets top="20.0" right="30.0" bottom="20.0" left="30.0"/></padding>
+
+            <Label fx:id="labelTituloRuta" text="RUTA RU000" styleClass="tituloDetalleViaje"/>
+            <Separator/>
+
+            <HBox spacing="10">
+                <Label text="Tren Asignado:" styleClass="campoLabel"/>
+                <Label fx:id="labelIdTren" text="TR001"/>
+            </HBox>
+            <HBox spacing="10">
+                <Label text="Origen:" styleClass="campoLabel"/>
+                <Label fx:id="labelOrigen" text="BOGOTA"/>
+            </HBox>
+            <HBox spacing="10">
+                <Label text="Destino:" styleClass="campoLabel"/>
+                <Label fx:id="labelDestino" text="MEDELLIN"/>
+            </HBox>
+            <HBox spacing="10">
+                <Label text="Kilómetros:" styleClass="campoLabel"/>
+                <Label fx:id="labelKms" text="450 km"/>
+            </HBox>
+            <HBox spacing="10">
+                <Label text="Valor Base:" styleClass="campoLabel"/>
+                <Label fx:id="labelValorBase" text="\$225.000"/>
+            </HBox>
+
+            <Button fx:id="btnCamino" onAction="#onCaminoClick" text="Ver Camino" styleClass="adminActionButton" maxWidth="Infinity"/>
+        </VBox>
+    </VBox>
+</VBox>

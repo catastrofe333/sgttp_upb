@@ -461,3 +461,32 @@
     -fx-border-color: #005f7f; /* Borde azul oscuro */
     -fx-effect: dropshadow(two-pass-box, rgba(0,0,0,0.1), 7, 0, 0, 3);
 }
+
+/* ... dentro de tu bloque @media screen and (max-width: 900px) o al final ... */
+
+/* ⬇️ ESTILOS PARA MENSAJES DE ESTADO ⬇️ */
+
+/* Etiqueta para mensajes de error (ya debería existir) */
+.errorLabel {
+    -fx-text-fill: red;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+/* Estilo para mensajes de éxito */
+.successLabel {
+    -fx-text-fill: #1a7e4b; /* Verde oscuro */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+/* Estilo para mensajes de información/alerta */
+.infoLabel {
+    -fx-text-fill: #005f7f; /* Azul oscuro */
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-padding: 10px;
+    -fx-background-color: #D4F0FD; /* Fondo celeste claro */
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="TOP_CENTER" spacing="30.0" styleClass="adminContentArea"
+      xmlns="http://javafx.com/javafx/21.0.6" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controlador.AdminTrenesConsultarController">
+    <Label text="CONSULTAR TREN" styleClass="adminSectionTitle"/>
+
+    <VBox alignment="CENTER" spacing="20.0">
+        <ComboBox fx:id="comboBoxIdTren" promptText="Seleccionar ID Tren" styleClass="combo_box" prefWidth="350"/>
+
+        <Button mnemonicParsing="false" onAction="#onConsultarClick"
+                styleClass="ingresarButton" text="CONSULTAR" prefWidth="200"/>
+
+        <Label fx:id="labelMensaje" styleClass="errorLabel" text="" wrapText="true" visible="false" managed="false"/>
+
+        <VBox fx:id="vboxResultado" alignment="TOP_LEFT" styleClass="loginCard" spacing="15.0"
+              prefWidth="450" visible="false" managed="false">
+            <padding><Insets top="20.0" right="30.0" bottom="20.0" left="30.0"/></padding>
+            <Label fx:id="labelTituloTren" text="TREN TR000" styleClass="tituloDetalleViaje"/>
+            <Separator/>
+            <HBox spacing="10">
+                <Label text="Tipo:" styleClass="campoLabel"/>
+                <Label fx:id="labelTipo" text="Transiberiano"/>
+            </HBox>
+            <HBox spacing="10">
+                <Label text="Kilometraje:" styleClass="campoLabel"/>
+                <Label fx:id="labelKilometraje" text="1500 km"/>
+            </HBox>
+            <Button fx:id="btnVagonesPasajeros" onAction="#onVagonesPasajerosClick" text="Vagones Pasajeros" styleClass="adminActionButton" maxWidth="Infinity"/>
+            <Button fx:id="btnVagonesCarga" onAction="#onVagonesCargaClick" text="Vagones Carga" styleClass="adminActionButton" maxWidth="Infinity"/>
+        </VBox>
+    </VBox>
+</VBox>

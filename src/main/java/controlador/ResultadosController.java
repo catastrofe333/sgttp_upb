@@ -39,42 +39,73 @@ public class ResultadosController {
     private final Sistema sistema = Aplicacion.getSistema();
     private final SimpleDateFormat sdfFechaTitulo = new SimpleDateFormat("dd MMM yyyy");
 
+    private Estacion origenBusqueda;
+    private Estacion destinoBusqueda;
+    private Date fechaBusqueda;
+    private boolean esBusquedaDirectaGlobal;
+
     /**
      * Este método es llamado por 'Inicio.java' para pasar los datos.
      */
-    public void inicializarDatos(Viaje[] viajes, Estacion origen, Estacion destino, Date fecha) {
+    public void inicializarDatos(Viaje[] viajes, Estacion origen, Estacion destino, Date fecha, boolean esBusquedaDirecta) {
 
-        // 1. Actualizar el título
-        // ¡Esta línea ya no dará error porque labelBusqueda SÍ estará conectado!
-        labelBusqueda.setText(
-                origen.toString() + " a " + destino.toString() + ", " + sdfFechaTitulo.format(fecha)
-        );
+        // 1. Guardar los parámetros
+        this.origenBusqueda = origen;
+        this.destinoBusqueda = destino;
+        this.fechaBusqueda = fecha;
+        this.esBusquedaDirectaGlobal = esBusquedaDirecta;
 
-        // 2. Lógica para mostrar tarjetas O el mensaje de "no hay viajes"
+        // 2. Actualizar el título
+        if (labelBusqueda != null) { // Asegurarse que el label existe
+            if (origen != null && destino != null) {
+                // Caso normal: búsqueda con origen y destino
+                labelBusqueda.setText(
+                        origen + " a " + destino + ", " + sdfFechaTitulo.format(fecha)
+                );
+            } else {
+                // Caso "Todos los Viajes": Poner un título temporal o vacío
+                // (ya que se sobrescribirá desde InicioController con setTituloBusqueda)
+                labelBusqueda.setText("Cargando viajes...");
+            }
+        }
+
+        // 3. Lógica para mostrar tarjetas
         if (viajes == null || viajes.length == 0) {
-            // NO HAY VIAJES:
-            vbox_tarjetas.setVisible(false); // Oculta el VBox de tarjetas
-            vbox_no_resultados.setVisible(true); // Muestra el VBox azul
+            vbox_tarjetas.setVisible(false);
+            vbox_no_resultados.setVisible(true);
         } else {
-            // SÍ HAY VIAJES:
-            vbox_tarjetas.setVisible(true); // Muestra el VBox de tarjetas
-            vbox_no_resultados.setVisible(false); // Oculta el VBox azul
-
-            // Limpiar las tarjetas de ejemplo (esto lo pediste)
+            vbox_tarjetas.setVisible(true);
+            vbox_no_resultados.setVisible(false);
             vbox_tarjetas.getChildren().clear();
 
-            // 3. Crear y añadir las tarjetas
-            for (Viaje viaje : viajes) {
+            // 4. Bucle para crear las tarjetas
+            for (int i = 0; i < viajes.length; i++) {
+                Viaje viaje = viajes[i];
+                if (viaje == null) continue;
+
                 try {
                     FXMLLoader loader = new FXMLLoader(Aplicacion.class.getResource("/tarjeta_viaje.fxml"));
-                    HBox tarjetaNode = loader.load();
+                    // NOTA: Tu FXML puede ser un HBox o VBox, asegúrate que coincida
+                    javafx.scene.layout.HBox tarjetaNode = loader.load();
                     TarjetaViajeController tarjetaController = loader.getController();
 
-                    // Asegúrate de que GestorRuta tiene 'buscarRutaPorId'
                     Ruta rutaDelViaje = sistema.getGestorRuta().buscarRutaPorId(viaje.getIdRuta());
 
                     if (rutaDelViaje != null) {
                         tarjetaController.setDatos(viaje, rutaDelViaje);
+
+                        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                        // !! ESTA ES LA LÍNEA QUE RESUELVE TU ERROR !!
+                        // !! Asegúrate de tenerla en tu código:     !!
+                        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                        tarjetaController.setParametrosBusqueda(origenBusqueda, destinoBusqueda, fechaBusqueda, esBusquedaDirectaGlobal);
+
+
+                        // Lógica "Recomendado"
+                        if (i == 0 && esBusquedaDirecta) {
+                            tarjetaController.setRecomendadoVisible(true);
+                        }
+
                         vbox_tarjetas.getChildren().add(tarjetaNode);
                     } else {
                         System.err.println("No se encontró la ruta con ID: " + viaje.getIdRuta());
@@ -84,6 +115,14 @@ public class ResultadosController {
                     e.printStackTrace();
                 }
             }
+        }
+    }
+
+    public void setTituloBusqueda(String texto) {
+        if (labelBusqueda != null) {
+            labelBusqueda.setText(texto);
+        } else {
+            System.err.println("Advertencia: Se intentó cambiar el título antes de que labelBusqueda estuviera inicializado.");
         }
     }
 

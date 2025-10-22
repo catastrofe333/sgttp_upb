@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="TOP_CENTER" spacing="20.0" VBox.vgrow="ALWAYS"
+      xmlns="http://javafx.com/javafx/21.0.6" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controlador.AdminHistorialController">
+    <VBox.margin>
+        <Insets top="20.0" />
+    </VBox.margin>
+
+    <Label text="Historial de Acciones (Log)" styleClass="adminSectionTitle"/>
+
+    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="transparentScroll">
+        <TextArea fx:id="textAreaLog" editable="false" wrapText="true" prefHeight="5000"
+                  style="-fx-font-family: 'Monospaced'; -fx-font-size: 13px;"/>
+    </ScrollPane>
+
+    <padding>
+        <Insets right="30.0" bottom="30.0" left="30.0"/>
+    </padding>
+</VBox>

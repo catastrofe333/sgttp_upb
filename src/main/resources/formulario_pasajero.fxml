@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<VBox id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="720.0" prefWidth="1280.0" alignment="TOP_CENTER"
+      xmlns="[http://javafx.com/javafx/21.0.6](http://javafx.com/javafx/21.0.6)" xmlns:fx="[http://javafx.com/fxml/1](http://javafx.com/fxml/1)"
+      stylesheets="@styles.css" fx:controller="controlador.FormularioPasajeroController"> <HBox id="menu_superior" prefHeight="100.0" prefWidth="1280.0">
+    <padding> <Insets top="12.0" right="24.0" bottom="12.0" left="24.0"/> </padding>
+    <Button mnemonicParsing="false" onAction="#onBackClick" styleClass="backButton">
+        <graphic> <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true"><Image url="@/imagenes/flechaAtras.png"/></ImageView> </graphic>
+    </Button>
+    <ImageView fitHeight="60.0" fitWidth="260.0" pickOnBounds="true" preserveRatio="true"> <Image url="@/imagenes/logo.png"/> </ImageView>
+    <Region HBox.hgrow="ALWAYS"/>
+</HBox>
+
+    <VBox alignment="TOP_CENTER" spacing="20.0" VBox.vgrow="ALWAYS">
+        <padding> <Insets top="30.0" right="50.0" bottom="40.0" left="50.0"/> </padding>
+
+        <Label fx:id="labelTituloFormulario" text="CATEGORIA - ID VIAJE" styleClass="tituloDetalleViaje" style="-fx-font-size: 24px;"/>
+
+        <HBox alignment="CENTER" spacing="40.0" VBox.vgrow="ALWAYS">
+
+            <VBox alignment="TOP_CENTER" spacing="15.0" styleClass="loginCard" prefWidth="500">
+                <padding> <Insets top="25.0" right="40.0" bottom="30.0" left="40.0"/> </padding>
+                <Label text="INFORMACIÓN PASAJERO" styleClass="categoryTitle"/>
+                <Separator/>
+
+                <HBox spacing="10.0">
+                    <ComboBox fx:id="comboBoxTipoId" promptText="Tipo ID" styleClass="combo_box" prefWidth="180"/>
+                    <TextField fx:id="fieldNumeroId" promptText="Número de Identificación" styleClass="inputField" HBox.hgrow="ALWAYS"/>
+                </HBox>
+                <TextField fx:id="fieldNombres" promptText="Nombres" styleClass="inputField" maxWidth="Infinity"/>
+                <TextField fx:id="fieldApellidos" promptText="Apellidos" styleClass="inputField" maxWidth="Infinity"/>
+                <TextField fx:id="fieldDireccion" promptText="Dirección" styleClass="inputField" maxWidth="Infinity"/>
+                <TextField fx:id="fieldTelefono" promptText="Teléfono" styleClass="inputField" maxWidth="Infinity"/>
+            </VBox>
+
+            <VBox alignment="TOP_CENTER" spacing="15.0" prefWidth="400">
+                <VBox alignment="TOP_CENTER" spacing="15.0" styleClass="loginCard">
+                    <padding> <Insets top="25.0" right="40.0" bottom="30.0" left="40.0"/> </padding>
+                    <Label text="CONTACTO" styleClass="categoryTitle"/>
+                    <Separator/>
+                    <TextField fx:id="fieldContactoNombres" promptText="Nombres" styleClass="inputField" maxWidth="Infinity"/>
+                    <TextField fx:id="fieldContactoApellidos" promptText="Apellidos" styleClass="inputField" maxWidth="Infinity"/>
+                    <TextField fx:id="fieldContactoTelefono" promptText="Teléfono" styleClass="inputField" maxWidth="Infinity"/>
+                </VBox>
+                <Region VBox.vgrow="ALWAYS"/> <Button text="COMPRAR" onAction="#onComprarClick" styleClass="buscarButton" prefWidth="250" prefHeight="60"/>
+                <Label fx:id="labelMensaje" styleClass="errorLabel" text="" wrapText="true" alignment="CENTER"/>
+            </VBox>
+        </HBox>
+    </VBox>
+</VBox>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="TOP_CENTER" spacing="30.0" xmlns="http://javafx.com/javafx/21.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.EmpleadoEquipajesController">
+    <VBox.margin><Insets top="20.0" /></VBox.margin>
+    <Label text="Gestión de Equipajes" styleClass="adminSectionTitle"/>
+    <GridPane hgap="30.0" vgap="30.0" alignment="CENTER">
+        <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" prefWidth="220.0"/> <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" prefWidth="220.0"/> <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" prefWidth="220.0"/>
+        </columnConstraints>
+        <rowConstraints> <RowConstraints minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES"/> </rowConstraints>
+        <Button fx:id="btnAgregarEquipaje" text="AGREGAR EQUIPAJE" onAction="#onAgregarClick" styleClass="adminActionButton" wrapText="true" maxWidth="Infinity" GridPane.columnIndex="0"/>
+        <Button fx:id="btnMarcarEntregado" text="MARCAR ENTREGADO" onAction="#onEntregarClick" styleClass="adminActionButton" wrapText="true" maxWidth="Infinity" GridPane.columnIndex="1"/>
+        <Button fx:id="btnConsultarEquipaje" text="CONSULTAR EQUIPAJE" onAction="#onConsultarClick" styleClass="adminActionButton" wrapText="true" maxWidth="Infinity" GridPane.columnIndex="2"/>
+    </GridPane>
+</VBox>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="TOP_CENTER" spacing="30.0" xmlns="http://javafx.com/javafx/21.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.EmpleadoEquipajesConsultarController">
+    <VBox.margin><Insets top="20.0" /></VBox.margin>
+    <Label text="CONSULTAR EQUIPAJES" styleClass="adminSectionTitle"/>
+
+    <VBox alignment="CENTER" spacing="20.0" prefWidth="350">
+        <ComboBox fx:id="comboBoxIdBoleto" promptText="ID Boleto" styleClass="combo_box" prefWidth="350" onAction="#onBoletoSeleccionado"/>
+        <Label fx:id="labelMensaje" styleClass="errorLabel" text="" wrapText="true" visible="false" managed="false"/>
+    </VBox>
+
+    <ScrollPane fx:id="scrollPaneResultados" fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="transparentScroll" visible="false" managed="false">
+        <FlowPane fx:id="flowPaneEquipajes" hgap="20.0" vgap="20.0" alignment="CENTER" prefWrapLength="800">
+            <padding><Insets top="10.0" bottom="10.0"/></padding>
+        </FlowPane>
+    </ScrollPane>
+    <padding> <Insets bottom="30.0" left="30.0" right="30.0"/> </padding>
+</VBox>

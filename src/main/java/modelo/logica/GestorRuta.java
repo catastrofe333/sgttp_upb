@@ -169,6 +169,10 @@ public class GestorRuta {
     }
 
     private Estacion[] concatenarArrays(Estacion[] array1, Estacion[] array2) {
+        if (array1 == null || array2 == null) {
+            return null;
+        }
+
         if (array1.length == 0) {
             return array2;
         }

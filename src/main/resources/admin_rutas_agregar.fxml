@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="TOP_CENTER" spacing="20.0" styleClass="adminContentArea"
+      xmlns="http://javafx.com/javafx/21.0.6" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controlador.AdminRutasAgregarController">
+    <padding>
+        <Insets top="20.0" right="40.0" bottom="30.0" left="40.0"/>
+    </padding>
+
+    <Label text="AGREGAR RUTA" styleClass="adminSectionTitle"/>
+
+    <HBox alignment="CENTER" spacing="30.0" VBox.vgrow="ALWAYS">
+        <VBox alignment="CENTER" spacing="20.0" prefWidth="350">
+            <ComboBox fx:id="comboBoxIdTren" promptText="Seleccionar ID Tren" styleClass="combo_box" prefWidth="350"/>
+
+            <ComboBox fx:id="comboBoxOrigen" promptText="Seleccionar Origen" styleClass="combo_box" prefWidth="350"
+                      onAction="#onDatosPrincipalesCambiados"/>
+
+            <ComboBox fx:id="comboBoxDestino" promptText="Seleccionar Destino" styleClass="combo_box" prefWidth="350"
+                      onAction="#onDatosPrincipalesCambiados"/>
+
+            <Button mnemonicParsing="false" onAction="#onAgregarClick"
+                    styleClass="ingresarButton" text="AGREGAR" prefWidth="200"/>
+        </VBox>
+
+        <VBox alignment="TOP_CENTER" spacing="10.0" styleClass="loginCard" prefWidth="400" VBox.vgrow="ALWAYS">
+            <padding><Insets top="15.0" right="25.0" bottom="15.0" left="25.0"/></padding>
+            <Label text="Estaciones Intermedias (En Orden)" styleClass="campoLabel"/>
+
+            <HBox spacing="10.0" alignment="CENTER_LEFT">
+                <ComboBox fx:id="comboBoxEstacionIntermedia" promptText="Añadir parada" styleClass="combo_box" HBox.hgrow="ALWAYS"/>
+                <Button fx:id="btnAddEstacion" onAction="#onAddEstacionClick" text="Añadir" styleClass="verButton"/>
+            </HBox>
+
+            <ListView fx:id="listViewEstacionesOrdenadas" VBox.vgrow="ALWAYS" prefHeight="150"/>
+
+            <HBox spacing="10.0" alignment="CENTER_RIGHT">
+                <Button fx:id="btnSubir" onAction="#onSubirClick" text="Subir" styleClass="adminMenuButton"/>
+                <Button fx:id="btnBajar" onAction="#onBajarClick" text="Bajar" styleClass="adminMenuButton"/>
+                <Button fx:id="btnEliminarEstacion" onAction="#onEliminarEstacionClick" text="Eliminar" styleClass="adminMenuButton" style="-fx-border-color: red; -fx-text-fill: red;"/>
+            </HBox>
+        </VBox>
+    </HBox>
+
+    <Label fx:id="labelMensaje" styleClass="errorLabel" text="" wrapText="true" alignment="CENTER"/>
+</VBox>

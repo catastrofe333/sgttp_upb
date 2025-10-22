@@ -4,7 +4,6 @@ import modelo.entidades.*;
 import modelo.enums.CategoriaBoleto;
 import modelo.persistencia.GestorArchivos;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -148,6 +147,34 @@ public class GestorTrenes {
         tren.vaciarPasajeros();
         guardar();
         guardarLog(new Date() + " VACIAR PASAJEROS EN: " + idTren  + " USUARIO: " + empleado.getUsuario());
+        return true;
+    }
+
+    public boolean actualizarKilometrajeTren(String idTren, double kilometrosRecorridos, Empleado empleado) {
+        Tren tren = buscarTren(idTren);
+        if (tren == null) {
+            System.err.println("Intento de actualizar kilometraje fallido: Tren " + idTren + " no encontrado.");
+            return false; // Tren no encontrado
+        }
+        if (kilometrosRecorridos <= 0) {
+            System.err.println("Intento de actualizar kilometraje fallido: Kilómetros recorridos ("+ kilometrosRecorridos +") deben ser positivos para el tren " + idTren);
+            return false; // No sumar 0 o negativos
+        }
+
+        // Obtener kilometraje actual y sumar el nuevo recorrido
+        double kilometrajeActual = tren.getKilometraje(); //
+        tren.setKilometraje(kilometrajeActual + kilometrosRecorridos); //
+
+        // Guardar los cambios en el archivo JSON de trenes
+        guardar();
+
+        // Registrar en el log
+        guardarLog(new Date() + " ACTUALIZAR KILOMETRAJE: TREN: " + idTren +
+                " KMS_SUMADOS: " + String.format("%.2f", kilometrosRecorridos) + // Formatear a 2 decimales
+                " KMS_TOTAL: " + String.format("%.2f", tren.getKilometraje()) + //
+                " USUARIO: " + empleado.getUsuario());
+
+        System.out.println("Kilometraje actualizado para TREN " + idTren + ". Nuevo total: " + String.format("%.2f", tren.getKilometraje()));
         return true;
     }
 

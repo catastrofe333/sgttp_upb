@@ -44,10 +44,55 @@ public class InicioController {
 
     @FXML
     public void onViajesClick(ActionEvent actionEvent) {
+        System.out.println("Botón 'Viajes' presionado. Mostrando todos los viajes visibles...");
+        try {
+            // 1. Obtener TODOS los viajes visibles
+            Viaje[] todosLosViajesVisibles = Aplicacion.getSistema().getGestorViajes().buscarViajesVisibles(); //
+
+            // 2. Cargar la vista de resultados
+            FXMLLoader fxmlLoader = new FXMLLoader(Aplicacion.class.getResource("/resultados_busqueda_rutas.fxml")); //
+            Parent root = fxmlLoader.load();
+            ResultadosController controllerResultadosController = fxmlLoader.getController();
+
+            // 3. Llamar a inicializarDatos con los viajes y parámetros genéricos
+            //    Como no hay origen/destino específico, podemos poner null o un texto
+            //    La fecha podría ser la actual, pero no es tan relevante aquí.
+            //    esBusquedaDirecta es false porque no es una búsqueda Origen-Destino.
+            controllerResultadosController.inicializarDatos(
+                    todosLosViajesVisibles,
+                    null, // Sin origen específico
+                    null, // Sin destino específico
+                    new Date(), // Fecha actual como referencia
+                    false // No es una búsqueda directa
+            );
+            // Sobrescribir el título para que tenga sentido
+            controllerResultadosController.setTituloBusqueda("Todos los Viajes Disponibles");
+
+
+            // 4. Cambiar la escena
+            Scene scene = ((Node) actionEvent.getSource()).getScene();
+            scene.setRoot(root); //
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Podrías mostrar un error al usuario si falla la carga
+        } catch (Exception e) {
+            // Captura general por si buscarViajesVisibles falla
+            e.printStackTrace();
+        }
     }
 
     @FXML
     public void onBoletosClick(ActionEvent actionEvent) {
+        try {
+            FXMLLoader loader = new FXMLLoader(Aplicacion.class.getResource("/mis_boletos_opciones.fxml")); // Carga las opciones
+            Parent root = loader.load();
+            Scene scene = ((Node) actionEvent.getSource()).getScene();
+            scene.setRoot(root); //
+        } catch (IOException e) {
+            System.err.println("Error al cargar mis_boletos_opciones.fxml: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -68,27 +113,54 @@ public class InicioController {
     @FXML
     public void onBuscarClick(ActionEvent actionEvent) throws IOException {
 
-        // ... (TODA TU LÓGICA DE BÚSQUEDA VA AQUÍ) ...
         Estacion estacionOrigen = origen.getValue();
         Estacion estacionDestino = destino.getValue();
         Date fecha = Date.from(fecha_salida.getValue().atStartOfDay(ZoneId.systemDefault()).toInstant());
-        Ruta[] rutasCoincidentes = Aplicacion.getSistema().getGestorRuta().buscarRutasPorOrigenDestino(estacionOrigen, estacionDestino);
-        Viaje[] viajesEncontrados = Aplicacion.getSistema().getGestorViajes().buscarViajesPorRuta(rutasCoincidentes, fecha);
 
-        // ... (TODA TU LÓGICA DE CARGAR EL FXML VA AQUÍ) ...
+        // ----- LÓGICA DE BÚSQUEDA MODIFICADA (Punto 4) -----
+        Viaje[] viajesAMostrar;
+        boolean busquedaDirecta = true;
+
+        // 1. Intentar búsqueda directa
+        //
+        Ruta[] rutasDirectas = Aplicacion.getSistema().getGestorRuta().buscarRutasPorOrigenDestino(estacionOrigen, estacionDestino);
+        //
+        Viaje[] viajesDirectos = Aplicacion.getSistema().getGestorViajes().buscarViajesPorRuta(rutasDirectas, fecha);
+
+        if (viajesDirectos != null && viajesDirectos.length > 0) {
+            viajesAMostrar = viajesDirectos;
+        } else {
+            // 2. Si no hay directos, buscar indirectos
+            busquedaDirecta = false;
+
+            // 2a. Viajes DESDE el origen
+            //
+            Ruta[] rutasOrigen = Aplicacion.getSistema().getGestorRuta().buscarRutasPorOrigen(estacionOrigen);
+            //
+            Viaje[] viajesOrigen = Aplicacion.getSistema().getGestorViajes().buscarViajesPorRuta(rutasOrigen, fecha);
+
+            // 2b. Viajes HACIA el destino
+            //
+            Ruta[] rutasDestino = Aplicacion.getSistema().getGestorRuta().buscarRutasPorDestino(estacionDestino);
+            //
+            Viaje[] viajesDestino = Aplicacion.getSistema().getGestorViajes().buscarViajesPorRuta(rutasDestino, fecha);
+
+            // 2c. Combinar resultados (Usando el GestorViajes modificado)
+            //
+            viajesAMostrar = Aplicacion.getSistema().getGestorViajes().concatenarViajes(viajesOrigen, viajesDestino);
+        }
+        // ----- FIN LÓGICA DE BÚSQUEDA -----
+
+        // Cargar FXML
         FXMLLoader fxmlLoader = new FXMLLoader(Aplicacion.class.getResource("/resultados_busqueda_rutas.fxml"));
-        Parent root = fxmlLoader.load(); // Carga el nuevo VBox raíz
+        Parent root = fxmlLoader.load();
         ResultadosController controllerResultadosController = fxmlLoader.getController();
-        controllerResultadosController.inicializarDatos(viajesEncontrados, estacionOrigen, estacionDestino, fecha);
 
-        // --- ⬇️ AQUÍ ESTÁ LA SOLUCIÓN ⬇️ ---
+        // Pasar el flag 'busquedaDirecta' (Punto 3)
+        controllerResultadosController.inicializarDatos(viajesAMostrar, estacionOrigen, estacionDestino, fecha, busquedaDirecta);
 
-        // 1. Obtiene la escena ACTUAL
+        // Transición de escena
         Scene scene = ((Node) actionEvent.getSource()).getScene();
-
-        // 2. En lugar de cambiar la escena, solo cambia el contenido raíz
         scene.setRoot(root);
-
-        // Ya NO necesitas stage.setScene() ni stage.setFullScreen()
     }
 }

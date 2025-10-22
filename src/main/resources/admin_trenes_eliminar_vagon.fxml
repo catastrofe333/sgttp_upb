@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="30.0" styleClass="adminContentArea"
+      xmlns="http://javafx.com/javafx/21.0.6" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controlador.AdminVagonesEliminarController">
+    <Label text="ELIMINAR VAGON" styleClass="adminSectionTitle"/>
+
+    <VBox alignment="CENTER" spacing="20.0">
+        <ComboBox fx:id="comboBoxIdTren" promptText="Seleccionar ID Tren" styleClass="combo_box" prefWidth="350"
+                  onAction="#onDatosSeleccionados"/>
+
+        <ComboBox fx:id="comboBoxTipoVagon" promptText="Tipo del Vagon" styleClass="combo_box" prefWidth="350"
+                  onAction="#onDatosSeleccionados"/>
+
+        <ComboBox fx:id="comboBoxIdVagon" promptText="Seleccionar ID Vagon" styleClass="combo_box" prefWidth="350" disable="true"/>
+
+        <Button mnemonicParsing="false" onAction="#onEliminarClick"
+                styleClass="ingresarButton" text="ELIMINAR" prefWidth="200"/>
+
+        <Label fx:id="labelMensaje" styleClass="errorLabel" text="" wrapText="true"/>
+    </VBox>
+</VBox>

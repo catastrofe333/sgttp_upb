@@ -1,24 +1,35 @@
+// Archivo: src/main/java/controlador/AdminTrenesController.java
+
 package controlador;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextArea; // Opcional para mostrar resultados
+import javafx.scene.layout.StackPane; // Importante para cargar contenido
 import modelo.logica.Sistema;
 import vista.Aplicacion;
 
+import java.io.IOException;
+
 public class AdminTrenesController {
 
+    // Los botones ya están definidos aquí
     @FXML private Button btnAgregarTren;
     @FXML private Button btnEliminarTren;
     @FXML private Button btnAgregarVagon;
     @FXML private Button btnEliminarVagon;
     @FXML private Button btnConsultarTren;
 
-    // Opcional: Si quieres mostrar info en un TextArea
-    // @FXML private TextArea textAreaResultados;
+    // Nuevo: Necesitas el StackPane del PanelAdminController para cargar la sub-vista
+    // Sin embargo, por la estructura, el StackPane 'contentArea' está en PanelAdminController.
+    // Una forma simple es asumir que el padre de este controlador (AdminTrenesController)
+    // es un nodo que está dentro de contentArea. Como esta vista no debe cargar otra sub-vista,
+    // vamos a usar el método más robusto de obtener el padre (PanelAdminController)
+    // o, más simple, cargar directamente el FXML en el StackPane (que es lo que ya hace PanelAdminController).
 
-    private Sistema sistema = Aplicacion.getSistema();
+    private final Sistema sistema = Aplicacion.getSistema();
 
     /**
      * Se llama al cargar esta vista. Puedes usarlo para inicializar
@@ -27,74 +38,78 @@ public class AdminTrenesController {
     @FXML
     public void initialize() {
         System.out.println("Controlador AdminTrenesController inicializado.");
-        // Aquí podrías, por ejemplo, cargar los trenes existentes en una tabla
-        // o limpiar el área de resultados.
+        // Opcional: Podrías cargar la vista de consulta por defecto aquí
+        // loadSubContent("/admin_trenes_consultar.fxml", btnConsultar);
     }
 
-    // --- Métodos para cada botón ---
+    // --- Métodos para cada botón, ahora cargan una nueva sub-vista ---
 
     @FXML
     void onAgregarTrenClick(ActionEvent event) {
-        System.out.println("Botón 'Agregar Tren' presionado.");
-        // Aquí abrirías una nueva ventana/diálogo para ingresar los datos del nuevo tren
-        // o cargarías un formulario en esta misma área.
-        // Ejemplo: cargarFormulario("/admin_trenes_agregar.fxml");
+        loadSubContent("/admin_trenes_agregar.fxml", event);
     }
 
     @FXML
     void onEliminarTrenClick(ActionEvent event) {
-        System.out.println("Botón 'Eliminar Tren' presionado.");
-        // Aquí pedirías el ID del tren a eliminar y llamarías a:
-        // sistema.getGestorTrenes().eliminarTren(idTren, (Administrador) sistema.getSesionActual());
-        // (Necesitarás obtener el ID de alguna forma, ej. un TextField o seleccionando de una tabla)
+        loadSubContent("/admin_trenes_eliminar.fxml", event);
     }
 
     @FXML
     void onAgregarVagonClick(ActionEvent event) {
-        System.out.println("Botón 'Agregar Vagón' presionado.");
-        // Similar a agregar tren, pedirías ID del tren y datos del vagón.
-        // Luego llamarías a sistema.getGestorTrenes().agregarVagonPasajeros(...) o agregarVagonCarga(...)
+        loadSubContent("/admin_trenes_agregar_vagon.fxml", event);
     }
 
     @FXML
     void onEliminarVagonClick(ActionEvent event) {
-        System.out.println("Botón 'Eliminar Vagón' presionado.");
-        // Pedirías ID del tren e ID del vagón a eliminar.
-        // Llamarías a sistema.getGestorTrenes().eliminarVagonPasajeros(...) o eliminarVagonCarga(...)
+        loadSubContent("/admin_trenes_eliminar_vagon.fxml", event);
     }
 
     @FXML
     void onConsultarTrenClick(ActionEvent event) {
-        System.out.println("Botón 'Consultar Tren' presionado.");
-        // Pedirías el ID del tren a consultar.
-        // Tren tren = sistema.getGestorTrenes().buscarTren(idTren);
-        // if (tren != null) {
-        //     textAreaResultados.setText(tren.toString()); // Mostrar info en el TextArea
-        // } else {
-        //     textAreaResultados.setText("Tren con ID " + idTren + " no encontrado.");
-        // }
+        loadSubContent("/admin_trenes_consultar.fxml", event);
     }
 
-    // --- Método auxiliar (ejemplo) para cargar formularios ---
-    /*
-    private void cargarFormulario(String fxmlPath) {
+    /**
+     * Carga un archivo FXML *dentro del PanelAdminController* (no dentro de esta sub-vista).
+     * Nota: Necesitas que el nodo raíz de esta vista (admin_trenes.fxml) esté dentro del
+     * StackPane (contentArea) del PanelAdminController.
+     * Esto requiere un patrón de comunicación entre controladores.
+     * La solución más simple para este flujo (que es un menú dentro de otro menú) es:
+     * 1. Conseguir la referencia al controlador principal (PanelAdminController).
+     * 2. Llamar al método `loadContent` del controlador principal.
+     */
+    private void loadSubContent(String fxmlPath, ActionEvent event) {
         try {
-            // Asumiendo que quieres cargar el formulario en el 'contentArea' del PanelAdminController
-            // Esto requiere obtener una referencia a ese controlador, lo cual puede ser complejo.
-            // Una alternativa más simple es abrir una NUEVA VENTANA (Stage) para los formularios.
+            // 1. Encontrar el StackPane (contentArea) que es el padre de esta vista.
+            // La forma más fácil es navegar hacia arriba en el árbol de nodos
+            // hasta encontrar el nodo raíz del PanelAdminController (BorderPane).
 
-            // Ejemplo abriendo nueva ventana:
-            FXMLLoader loader = new FXMLLoader(Aplicacion.class.getResource(fxmlPath));
-            Parent root = loader.load();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Agregar Tren"); // O el título correspondiente
-            stage.initModality(Modality.APPLICATION_MODAL); // Bloquea la ventana principal
-            stage.showAndWait(); // Espera a que se cierre la ventana
+            // Subir dos niveles para encontrar el StackPane (contentArea) del PanelAdminController
+            // (Esta sub-vista está dentro de admin_trenes.fxml, que a su vez está en contentArea)
+            // Asumiendo la jerarquía: Button -> VBox(admin_trenes.fxml) -> StackPane (contentArea)
+            StackPane contentArea = (StackPane) ((Parent) ((Button) event.getSource()).getParent().getParent().getParent()).getScene().lookup("#contentArea");
+
+            if (contentArea != null) {
+                // Cargar el FXML hijo
+                Parent subVista = FXMLLoader.load(Aplicacion.class.getResource(fxmlPath));
+
+                // Limpiar el área de contenido y añadir la nueva vista
+                contentArea.getChildren().clear();
+                contentArea.getChildren().add(subVista);
+
+                // Opcional: Podrías querer volver a cargar admin_trenes.fxml primero
+                // para que el StackPane se vea limpio antes de la nueva sub-vista.
+                // Pero para simplificar, cargamos la sub-vista directamente.
+            } else {
+                System.err.println("Error: No se encontró el StackPane 'contentArea'.");
+            }
 
         } catch (IOException e) {
+            System.err.println("Error al cargar la sub-vista: " + fxmlPath);
+            e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("Error general en loadSubContent: " + e.getMessage());
             e.printStackTrace();
         }
     }
-    */
 }

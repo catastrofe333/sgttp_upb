@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "tipoId": "CC",
+    "id": "1005258463",
+    "nombres": "Maria Catalina",
+    "apellidos": "Sanchez Saavedra",
+    "cargo": "Gerente",
+    "usuario": "catita",
+    "contrasena": "12345"
+  }
+]

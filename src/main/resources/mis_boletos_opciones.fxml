@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<VBox id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="720.0" prefWidth="1280.0"
+      xmlns="http://javafx.com/javafx/21.0.6" xmlns:fx="http://javafx.com/fxml/1"
+      stylesheets="@styles.css" fx:controller="controlador.MisBoletosOpcionesController"> <HBox id="menu_superior" prefHeight="100.0" prefWidth="1280.0">
+    <padding> <Insets top="12.0" right="24.0" bottom="12.0" left="24.0"/> </padding>
+    <Button mnemonicParsing="false" onAction="#onBackClick" styleClass="backButton">
+        <graphic>
+            <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+                <Image url="@/imagenes/flechaAtras.png"/>
+            </ImageView>
+        </graphic>
+    </Button>
+    <ImageView fitHeight="60.0" fitWidth="260.0" pickOnBounds="true" preserveRatio="true">
+        <Image url="@/imagenes/logo.png"/>
+    </ImageView>
+    <Region HBox.hgrow="ALWAYS"/>
+</HBox>
+
+    <VBox alignment="CENTER" spacing="40.0" VBox.vgrow="ALWAYS">
+        <Label text="CONSULTAR MIS BOLETOS" styleClass="tituloDetalleViaje" style="-fx-font-size: 36px;"/>
+        <HBox alignment="CENTER" spacing="50.0">
+            <Button text="POR ID PASAJERO" onAction="#onPorPasajeroClick" styleClass="adminActionButton" prefWidth="300" prefHeight="100"/>
+            <Button text="POR ID BOLETO" onAction="#onPorBoletoClick" styleClass="adminActionButton" prefWidth="300" prefHeight="100"/>
+        </HBox>
+        <padding> <Insets bottom="100.0"/> </padding>
+    </VBox>
+</VBox>

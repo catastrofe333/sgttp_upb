@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+
+<VBox id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="720.0" prefWidth="1280.0"
+      xmlns="http://javafx.com/javafx/21.0.6" xmlns:fx="http://javafx.com/fxml/1"
+      stylesheets="@styles.css" fx:controller="controlador.MisBoletosConsultarController"> <HBox id="menu_superior" prefHeight="100.0" prefWidth="1280.0">
+    <padding> <Insets top="12.0" right="24.0" bottom="12.0" left="24.0"/> </padding>
+    <Button mnemonicParsing="false" onAction="#onBackClick" styleClass="backButton">
+        <graphic> <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true"><Image url="@/imagenes/flechaAtras.png"/></ImageView> </graphic>
+    </Button>
+    <ImageView fitHeight="60.0" fitWidth="260.0" pickOnBounds="true" preserveRatio="true"> <Image url="@/imagenes/logo.png"/> </ImageView>
+    <Region HBox.hgrow="ALWAYS"/>
+</HBox>
+
+    <VBox alignment="TOP_CENTER" spacing="20.0" VBox.vgrow="ALWAYS">
+        <padding> <Insets top="30.0" right="40.0" bottom="40.0" left="40.0"/> </padding>
+
+        <Label fx:id="labelTituloConsulta" text="CONSULTAR BOLETO POR ..." styleClass="tituloResultados"/>
+
+        <StackPane prefWidth="400">
+            <HBox fx:id="hboxBusquedaPasajero" alignment="CENTER" spacing="10.0" visible="false" managed="false">
+                <TextField fx:id="fieldInputPasajero" promptText="ID Pasajero" styleClass="inputField" HBox.hgrow="ALWAYS"/>
+                <Button text="BUSCAR" onAction="#onBuscarClick" styleClass="ingresarButton"/>
+            </HBox>
+            <HBox fx:id="hboxBusquedaBoleto" alignment="CENTER" spacing="10.0" visible="false" managed="false">
+                <ComboBox fx:id="comboBoxInputBoleto" promptText="ID Boleto" styleClass="combo_box" HBox.hgrow="ALWAYS"/>
+                <Button text="BUSCAR" onAction="#onBuscarClick" styleClass="ingresarButton"/>
+            </HBox>
+        </StackPane>
+
+        <Label fx:id="labelMensaje" styleClass="errorLabel" text="" wrapText="true" visible="false" managed="false"/>
+
+        <ScrollPane fx:id="scrollPaneResultados" fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="transparentScroll" visible="false" managed="false">
+            <VBox fx:id="vboxResultados" spacing="20.0" alignment="TOP_CENTER">
+                <padding><Insets top="10.0" bottom="10.0"/></padding>
+            </VBox>
+        </ScrollPane>
+    </VBox>
+</VBox>

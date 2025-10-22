@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="TOP_CENTER" spacing="30.0"
+      xmlns="http://javafx.com/javafx/21.0.6" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controlador.AdminEmpleadosController"> <VBox.margin>
+    <Insets top="20.0" />
+</VBox.margin>
+
+    <Label text="Gestión de Empleados" styleClass="adminSectionTitle"/>
+
+    <GridPane hgap="30.0" vgap="30.0" alignment="CENTER">
+        <columnConstraints>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="220.0"/>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="220.0"/>
+            <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="220.0"/>
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES"/>
+            <RowConstraints minHeight="10.0" prefHeight="80.0" vgrow="SOMETIMES"/>
+        </rowConstraints>
+
+        <Button fx:id="btnAgregarEmpleado" mnemonicParsing="false" onAction="#onAgregarEmpleadoClick"
+                text="AGREGAR EMPLEADO" styleClass="adminActionButton" wrapText="true" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="0"/>
+
+        <Button fx:id="btnEliminarEmpleado" mnemonicParsing="false" onAction="#onEliminarEmpleadoClick"
+                text="ELIMINAR EMPLEADO" styleClass="adminActionButton" wrapText="true" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+
+        <Button fx:id="btnModificarCargo" mnemonicParsing="false" onAction="#onModificarCargoClick"
+                text="MODIFICAR CARGO" styleClass="adminActionButton" wrapText="true" maxWidth="Infinity" GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+
+        <Button fx:id="btnModificarUsuario" mnemonicParsing="false" onAction="#onModificarUsuarioClick"
+                text="MODIFICAR USUARIO" styleClass="adminActionButton" wrapText="true" maxWidth="Infinity" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+
+        <Button fx:id="btnModificarContrasena" mnemonicParsing="false" onAction="#onModificarContrasenaClick"
+                text="MODIFICAR CONTRASEÑA" styleClass="adminActionButton" wrapText="true" maxWidth="Infinity" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+        <Button fx:id="btnConsultarEmpleado" mnemonicParsing="false" onAction="#onConsultarEmpleadoClick"
+                text="CONSULTAR EMPLEADO" styleClass="adminActionButton" wrapText="true" maxWidth="Infinity" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+
+        <VBox.margin>
+            <Insets top="20.0"/>
+        </VBox.margin>
+    </GridPane>
+</VBox>

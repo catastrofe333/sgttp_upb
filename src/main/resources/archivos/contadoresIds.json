@@ -1,9 +1,9 @@
 {
-  "boleto": 0,
-  "equipaje": 0,
-  "ruta": 0,
-  "tren": 0,
-  "vagonPasajeros": 0,
-  "vagonCarga": 0,
-  "viaje": 0
+  "boleto": 2,
+  "equipaje": 2,
+  "ruta": 5,
+  "tren": 2,
+  "vagonPasajeros": 3,
+  "vagonCarga": 1,
+  "viaje": 5
 }

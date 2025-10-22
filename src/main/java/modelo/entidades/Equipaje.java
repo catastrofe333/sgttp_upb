@@ -38,7 +38,7 @@ public class Equipaje {
         this.estado = estado;
     }
 
-    public double getMaxPeso() {
+    public static double getMaxPeso() {
         return maxPeso;
     }
 

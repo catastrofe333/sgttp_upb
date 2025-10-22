@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="30.0" xmlns="http://javafx.com/javafx/21.0.6" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.EmpleadoEquipajesEntregarController">
+    <VBox.margin><Insets top="20.0" /></VBox.margin>
+    <Label text="ENTREGAR EQUIPAJE" styleClass="adminSectionTitle"/>
+    <VBox alignment="CENTER" spacing="20.0" prefWidth="350">
+        <ComboBox fx:id="comboBoxIdBoleto" promptText="ID Boleto" styleClass="combo_box" prefWidth="350" onAction="#onBoletoSeleccionado"/>
+        <ComboBox fx:id="comboBoxIdEquipaje" promptText="ID Equipaje" styleClass="combo_box" prefWidth="350" disable="true"/>
+        <Button text="ENTREGADO" onAction="#onEntregarClick" styleClass="ingresarButton" prefWidth="200"/>
+        <Label fx:id="labelMensaje" styleClass="errorLabel" text="" wrapText="true"/>
+    </VBox>
+</VBox>

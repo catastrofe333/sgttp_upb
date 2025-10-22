@@ -13,7 +13,7 @@
 <VBox id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
       prefHeight="720.0" prefWidth="1280.0"
       xmlns="http://javafx.com/javafx/21.0.6" xmlns:fx="http://javafx.com/fxml/1"
-      stylesheets="@inicio.css" fx:controller="controlador.ResultadosController">
+      stylesheets="@styles.css" fx:controller="controlador.ResultadosController">
 
     <HBox id="menu_superior" prefHeight="100.0" prefWidth="1280.0">
         <padding>
